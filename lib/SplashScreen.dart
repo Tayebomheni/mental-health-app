@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pcd/Login.dart';
+import 'package:pcd/WelcomeScreen.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ with SingleTickerProviderStateMixin{//allows us to use duration , animation ...
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);//get rid of bottom and top bar
     Future.delayed(Duration(seconds: 3),() {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) => LoginPage()
+        builder: (_) =>  WelcomeScreen()
         ));
     });
   }
