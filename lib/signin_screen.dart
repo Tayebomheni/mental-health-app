@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pcd/Navbar.dart';
 import 'package:pcd/color_utils.dart';
 import 'package:pcd/reset_password.dart';
 import 'package:pcd/reusable_widget.dart';
@@ -49,17 +48,20 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 5,
                 ),
                 forgetPassword(context),
-                firebaseUIButton(context, "Sign In", () {
-                  FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
-                      .then((value) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => navbar()));
-                  }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
-                  });
+                firebaseUIButton(context, "Sign In", () async {
+                try {
+                  // ignore: unused_local_variable
+                  final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email:  _emailTextController.text,
+                    password:  _passwordTextController.text
+                  );
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'user-not-found') {
+                    print('No user found for that email.');
+                  } else if (e.code == 'wrong-password') {
+                    print('Wrong password provided for that user.');
+                  }
+                }
                 }),
                 signUpOption()
               ],

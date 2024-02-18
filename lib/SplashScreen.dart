@@ -46,8 +46,8 @@ with SingleTickerProviderStateMixin{//allows us to use duration , animation ...
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          Image.network(
-            "https://scontent.ftun8-1.fna.fbcdn.net/v/t39.30808-6/302449720_463785412458120_6953622856769465843_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=AgPx_T8gYcsAX_xEfIi&_nc_ht=scontent.ftun8-1.fna&oh=00_AfDaX5jXq7NlZfwPonaGQhwTT25vcbDcNS0gp_q5pIKLlw&oe=65CCB29F",
+          Image.asset(
+            "assets/images/logo.jpg",
             height: 100,
             width: 100,
             ),
