@@ -28,7 +28,7 @@ class _AccountScreenState extends State<Parametres> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 133, 30, 198),
       body: Container(
         
         child: SingleChildScrollView(
@@ -43,6 +43,7 @@ class _AccountScreenState extends State<Parametres> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w500,
+                     color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -61,6 +62,7 @@ class _AccountScreenState extends State<Parametres> {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
+                               color: Colors.white,
                             ),
                           ),
                           SizedBox(height: 10),
@@ -93,13 +95,14 @@ class _AccountScreenState extends State<Parametres> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w500,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 20),
                 Container(
                 padding: const EdgeInsets.all(10.0),
                 
-                color: Colors.purple,
+                color: Color.fromARGB(255, 53, 53, 54),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -107,7 +110,7 @@ class _AccountScreenState extends State<Parametres> {
                 SettingItem(
                   title: "Avis",
                   icon: Ionicons.star,
-                  bgColor: Colors.orange.shade100,
+                  bgColor: Color.fromARGB(255, 53, 53, 54),
                   iconColor: Colors.orange,
                   onTap: () {},
                 ),
@@ -115,8 +118,8 @@ class _AccountScreenState extends State<Parametres> {
                 SettingItem(
                   title: "Confidentialité",
                   icon: Ionicons.shield_checkmark,
-                  bgColor: Colors.blue.shade100,
-                  iconColor: Colors.blue,
+                  bgColor: Color.fromARGB(255, 53, 53, 54),
+                  iconColor: Colors.white,
                   onTap: () {},
                 ),
                 const SizedBox(height: 8),
@@ -136,16 +139,16 @@ class _AccountScreenState extends State<Parametres> {
                 SettingItem(
                   title: "Aide",
                   icon: Ionicons.help,
-                  bgColor: Colors.red.shade100,
-                  iconColor: Colors.red,
+                  bgColor: Color.fromARGB(255, 53, 53, 54),
+                  iconColor: Colors.white,
                   onTap: () {},
                 ),
                 const SizedBox(height: 8),
                 CustomItem(
                   title: "Déconnexion",
                   icon: Ionicons.log_out,
-                  backgroundColor:  Colors.red.shade100,
-                  iconColor: Colors.red,
+                  backgroundColor:  Color.fromARGB(255, 53, 53, 54),
+                  iconColor: Colors.white,
                  onTap: () async {
                     setState(() {
                     _isLoading = true;

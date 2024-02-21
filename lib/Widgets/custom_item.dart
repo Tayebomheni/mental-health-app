@@ -21,7 +21,7 @@ class CustomItem extends StatelessWidget {
     this.value,
     this.iconSize = 24.0,
     this.containerSize = 50.0,
-    this.textColor = Colors.black, required bool isLoading,
+    this.textColor = Colors.white, required bool isLoading,
   }) : super(key: key);
 
   @override

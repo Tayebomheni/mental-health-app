@@ -16,10 +16,10 @@ class _PrincipalState extends State<Principal> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: ListView(
         children: [
-          SizedBox(height: 70),
           Text(
             "Découvrir le fonctionnement de l'application !",
             style: TextStyle(
@@ -34,13 +34,76 @@ class _PrincipalState extends State<Principal> {
               fontSize: 18,
             ),
           ),
-          SizedBox(height: 25),
-         
-          CustomContainer(onTap: onContainerClicked),
-          SizedBox(height: 5),
-          CustomContainer(onTap: onContainerClicked),
-          SizedBox(height: 5),
-          CustomContainer(onTap: onContainerClicked),
+         SizedBox(height: 20),
+        Card(
+            elevation: 5.0,
+            margin: EdgeInsets.all(10.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  'assets/icons/apprentissage.png',
+                  width: 50, // Ajustez la largeur selon vos besoins
+                  height: 50, // Ajustez la hauteur selon vos besoins
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Commencer l\'apprentissage',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Card(
+            elevation: 5.0,
+            margin: EdgeInsets.all(10.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  'assets/icons/test.jpg',
+                  width: 50, // Ajustez la largeur selon vos besoins
+                  height: 50, // Ajustez la hauteur selon vos besoins
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Passer un test',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Card(
+            elevation: 5.0,
+            margin: EdgeInsets.all(10.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  'assets/icons/journal.png',
+                  width: 50, // Ajustez la largeur selon vos besoins
+                  height: 50, // Ajustez la hauteur selon vos besoins
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Commencer l\'apprentissage',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
