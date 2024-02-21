@@ -16,10 +16,19 @@ class Parametres extends StatefulWidget {
 
 class _AccountScreenState extends State<Parametres> {
   bool isDarkMode = false;
+  late User? currentUser;//hold the current user information
+  bool _isLoading = false;
+
+ @override
+  void initState() {
+    super.initState();
+    currentUser = FirebaseAuth.instance.currentUser;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         
         child: SingleChildScrollView(
@@ -28,6 +37,7 @@ class _AccountScreenState extends State<Parametres> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 20),
                 const Text(
                   "Compte",
                   style: TextStyle(
@@ -43,11 +53,11 @@ class _AccountScreenState extends State<Parametres> {
                       Image.asset("assets/icons/avatar.png",
                           width: 70, height: 70),
                       const SizedBox(width: 20),
-                      const Column(
+                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Uranus Code",
+                            currentUser?.displayName ?? "User Name",
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
@@ -55,7 +65,7 @@ class _AccountScreenState extends State<Parametres> {
                           ),
                           SizedBox(height: 10),
                           Text(
-                            "Youtube Channel",
+                               currentUser?.email ?? "Email",
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.grey,
@@ -86,6 +96,14 @@ class _AccountScreenState extends State<Parametres> {
                   ),
                 ),
                 const SizedBox(height: 20),
+                Container(
+                padding: const EdgeInsets.all(10.0),
+                
+                color: Colors.purple,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                
                 SettingItem(
                   title: "Avis",
                   icon: Ionicons.star,
@@ -93,7 +111,7 @@ class _AccountScreenState extends State<Parametres> {
                   iconColor: Colors.orange,
                   onTap: () {},
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 8),
                 SettingItem(
                   title: "Confidentialité",
                   icon: Ionicons.shield_checkmark,
@@ -101,7 +119,7 @@ class _AccountScreenState extends State<Parametres> {
                   iconColor: Colors.blue,
                   onTap: () {},
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 8),
                 /*SettingSwitch(
                   title: "Dark Mode",
                   icon: Ionicons.earth,
@@ -122,18 +140,34 @@ class _AccountScreenState extends State<Parametres> {
                   iconColor: Colors.red,
                   onTap: () {},
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 8),
                 CustomItem(
                   title: "Déconnexion",
                   icon: Ionicons.log_out,
                   backgroundColor:  Colors.red.shade100,
                   iconColor: Colors.red,
                  onTap: () async {
-                    await FirebaseAuth.instance.signOut();
-                    Navigator.of(context).pushReplacementNamed('signin');
+                    setState(() {
+                    _isLoading = true;
+                    });
+                     try {
+              await FirebaseAuth.instance.signOut();
+              Navigator.of(context).pushReplacementNamed('signin');
+            } catch (e) {
+              print("Error during sign out: $e");
+            } finally {
+              await Future.delayed(Duration(seconds: 3));
+              setState(() {
+                _isLoading = false;
+              });
+            }
+          
                   },
+                  isLoading: _isLoading,
+                  ),
+                    ],
+                  ),
                 ),
-               
               ],
             ),
           ),

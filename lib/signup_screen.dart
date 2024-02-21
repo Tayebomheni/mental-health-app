@@ -65,6 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       email:  _emailTextController.text,
                       password: _passwordTextController.text,
                     );
+                    await credential.user?.updateDisplayName(_userNameTextController.text);//By calling updateDisplayName after user creation, you can ensure that the display name is set for the user
                     Navigator.of(context).pushReplacementNamed("navbar");//pushreplacementNamed tkhalik 7ata ki treloadi page yo93od user logged in
                   } on FirebaseAuthException catch (e) {
                     if (e.code == 'weak-password') {
