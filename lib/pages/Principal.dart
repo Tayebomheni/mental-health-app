@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pcd/Widgets/custom_container.dart';
 
 class Principal extends StatefulWidget {
   const Principal({Key? key});
@@ -34,76 +33,178 @@ class _PrincipalState extends State<Principal> {
               fontSize: 18,
             ),
           ),
-         SizedBox(height: 20),
-        Card(
-            elevation: 5.0,
-            margin: EdgeInsets.all(10.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(
-                  'assets/icons/apprentissage.png',
-                  width: 50, // Ajustez la largeur selon vos besoins
-                  height: 50, // Ajustez la hauteur selon vos besoins
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    'Commencer l\'apprentissage',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          SizedBox(height: 10),
           Card(
-            elevation: 5.0,
-            margin: EdgeInsets.all(10.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(
-                  'assets/icons/test.jpg',
-                  width: 50, // Ajustez la largeur selon vos besoins
-                  height: 50, // Ajustez la hauteur selon vos besoins
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    'Passer un test',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ],
+  elevation: 5.0,
+  margin: EdgeInsets.all(10.0),
+  child: GestureDetector(
+    onTap: () {
+      // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
+      print("La carte a été cliquée !");
+      // Vous pouvez ajouter d'autres logiques ou navigations ici
+    },
+    child: Container(
+      width: double.infinity,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 106.0,
+            width: MediaQuery.of(context).size.width * 0.3,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16.0),
+              child: Image.asset(
+                'assets/icons/apprentissage.png',
+                fit: BoxFit.cover,
+              ),
             ),
           ),
+          SizedBox(width: 8.0),
+          Expanded(
+            child: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(
+                      'Commencer l\'apprentissage',
+                      style: TextStyle(
+                        fontSize: 15.5,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 2.0),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(
+                      'Familiariser vous avec le concept de thérapie pour comprendre ses principes!',
+                      style: TextStyle(
+                        fontSize: 11,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  ),
+)
+,
           Card(
-            elevation: 5.0,
-            margin: EdgeInsets.all(10.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+  elevation: 5.0,
+  margin: EdgeInsets.all(10.0),
+  child: GestureDetector(
+    onTap: () {
+      // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
+      print("La deuxième carte a été cliquée !");
+      // Vous pouvez ajouter d'autres logiques ou navigations ici
+    },
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 100.0,
+          width: MediaQuery.of(context).size.width * 0.3,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: Image.asset(
+              'assets/icons/test1.webp',
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        SizedBox(width: 8.0),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
               children: [
-                Image.asset(
-                  'assets/icons/journal.png',
-                  width: 50, // Ajustez la largeur selon vos besoins
-                  height: 50, // Ajustez la hauteur selon vos besoins
+                Text(
+                  'Passer un test ',
+                  style: TextStyle(
+                    fontSize: 15.5,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                SizedBox(height: 2.0),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Text(
-                    'Commencer l\'apprentissage',
+                    'Evaluer l\'état psychologique actuel !',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 11,
                     ),
                   ),
                 ),
               ],
             ),
           ),
+        ),
+      ],
+    ),
+  ),
+)
+,
+          Card(
+  elevation: 5.0,
+  margin: EdgeInsets.all(10.0),
+  child: GestureDetector(
+    onTap: () {
+      // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
+      print("La troisième carte a été cliquée !");
+      // Vous pouvez ajouter d'autres logiques ou navigations ici
+    },
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 110.0,
+          width: MediaQuery.of(context).size.width * 0.3,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: Image.asset(
+              'assets/icons/journal1.webp',
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        SizedBox(width: 8.0),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Column(
+              children: [
+                Text(
+                  'Créer une entrée dans le journal',
+                  style: TextStyle(
+                    fontSize: 15.5,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 2.0),
+                Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: Text(
+                    'Commencer le travail pratique pour changer les pensées !',
+                    style: TextStyle(
+                      fontSize: 11,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+)
+,
         ],
       ),
     );
