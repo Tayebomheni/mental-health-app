@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pcd/pages/Parametres.dart';
 
 class EditAccountScreen extends StatefulWidget {
   @override
@@ -11,21 +14,47 @@ class EditAccountScreen extends StatefulWidget {
 class _EditProfilePageState extends State<EditAccountScreen> {
   bool showPassword = false;
   File? file;
+  late TextEditingController _passwordTextController;
+  late TextEditingController _emailTextController;
+  late TextEditingController _userNameTextController;
 
-  getImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? imagecamera =
-        await picker.pickImage(source: ImageSource.camera);
-
-    if (imagecamera == null) {
-      // L'utilisateur a annulé la sélection de la photo
-      return; // Sortie de la fonction
+  @override
+  void initState() {
+    super.initState();
+    // Récupérer les informations de l'utilisateur connecté
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      _userNameTextController =
+          TextEditingController(text: user.displayName ?? '');
+      _emailTextController = TextEditingController(text: user.email ?? '');
     }
 
-    // Une image a été sélectionnée, mettez à jour le fichier et l'état
-    file = File(imagecamera.path);
-    setState(() {});
+    _passwordTextController = TextEditingController();
   }
+
+getImage() async {
+  final ImagePicker picker = ImagePicker();
+  final XFile? imagecamera = await picker.pickImage(source: ImageSource.camera);
+
+  if (imagecamera != null) {
+    // Récupérer l'utilisateur connecté
+    final user = FirebaseAuth.instance.currentUser;
+    
+    if (user != null) {
+      // Une image a été sélectionnée, mettez à jour le fichier et l'état
+      file = File(imagecamera.path);
+
+      // Générer un nom de fichier unique basé sur l'horodatage actuel et l'UID de l'utilisateur
+      String fileName = DateTime.now().millisecondsSinceEpoch.toString() + '_' + user.uid + '.jpg';
+      
+      var refstorage = FirebaseStorage.instance.ref().child(fileName);
+      await refstorage.putFile(file!);
+
+      setState(() {});
+    }
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -121,10 +150,10 @@ class _EditProfilePageState extends State<EditAccountScreen> {
               SizedBox(
                 height: 35,
               ),
-              buildTextField("Full Name", "", false),
-              buildTextField("E-mail", "", false),
-              buildTextField("Password", "", true),
-              buildTextField("Location", "", false),
+              buildTextField("Full Name", _userNameTextController, false),
+              buildTextField("E-mail", _emailTextController, false),
+              buildTextField("Password", _passwordTextController, true),
+              //buildTextField("Location", "", false),
               SizedBox(
                 height: 5,
               ),
@@ -163,11 +192,74 @@ class _EditProfilePageState extends State<EditAccountScreen> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       // Action à exécuter lorsque le bouton "SAVE" est pressé
-                      // Mettre en œuvre la logique de sauvegarde des modifications du profil
+                      final user = FirebaseAuth.instance.currentUser;
+                      if (user != null) {
+                        try {
+                          // Mettre à jour le nom d'utilisateur
+                          await user
+                              .updateDisplayName(_userNameTextController.text);
 
+                          // Mettre à jour l'e-mail si l'utilisateur a modifié l'e-mail
+                          if (_emailTextController.text != user.email) {
+                            await user.verifyBeforeUpdateEmail(
+                                _emailTextController.text);
+                          }
 
+                          // Mettre à jour le mot de passe si l'utilisateur a saisi un nouveau mot de passe
+                          if (_passwordTextController.text.isNotEmpty) {
+                            await user
+                                .updatePassword(_passwordTextController.text);
+                          }
+
+                          // Afficher une boîte de dialogue pour informer l'utilisateur que les modifications ont été enregistrées avec succès
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Modifications enregistrées'),
+                                content: Text(
+                                    'Vos informations ont été mises à jour avec succès.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => Parametres()),
+                        );
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        } catch (error) {
+                          // Gérer les erreurs
+                          print(
+                              'Erreur lors de la mise à jour du profil : $error');
+                          // Afficher un message d'erreur à l'utilisateur
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Erreur'),
+                                content: Text(
+                                    'Une erreur s\'est produite lors de la mise à jour de votre profil. Veuillez réessayer.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      }
                     },
                     style: ButtonStyle(
                       backgroundColor:
@@ -199,12 +291,19 @@ class _EditProfilePageState extends State<EditAccountScreen> {
     );
   }
 
-  Widget buildTextField(
-      String labelText, String placeholder, bool isPasswordTextField) {
+  Widget buildTextField(String labelText, TextEditingController controller,
+      bool isPasswordTextField) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextField(
+        controller: controller,
         obscureText: isPasswordTextField ? showPassword : false,
+        onChanged: (value) {
+          setState(() {
+            // Mettre à jour la valeur dans le contrôleur de texte
+            controller.text = value;
+          });
+        },
         decoration: InputDecoration(
             suffixIcon: isPasswordTextField
                 ? IconButton(
@@ -222,7 +321,7 @@ class _EditProfilePageState extends State<EditAccountScreen> {
             contentPadding: EdgeInsets.only(bottom: 3),
             labelText: labelText,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            hintText: placeholder,
+            hintText: labelText,
             hintStyle: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,

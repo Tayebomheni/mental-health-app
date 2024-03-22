@@ -15,7 +15,8 @@ void main() async {
       apiKey: "AIzaSyDK2YzreNUP12J8Axy9IbCX28MzmR1-gwo",
       projectId: "signin-b0256",
       appId: "1:792151502069:android:9dbffe8b8be8cd108d69bc",
-      messagingSenderId: "792151502069"
+      messagingSenderId: "792151502069",
+      storageBucket: "gs://signin-b0256.appspot.com"
   ));
   
   runApp(const MyApp());

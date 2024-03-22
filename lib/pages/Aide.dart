@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Aide extends StatelessWidget {
+  final TextEditingController _reclamationController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +28,8 @@ class Aide extends StatelessWidget {
                   "Oui,nous accordons une grande importance à la confidentialité et à la sécurité des données de nos utilisateurs. Toutes vos informations sont cryptées et stockées de manière sécurisée conformément aux réglementations en vigueur.",
             ),
             _buildFAQItem(
-              question: "Quels types de fonctionnalités propose MindEase pour soutenir la santé mentale ?",
+              question:
+                  "Quels types de fonctionnalités propose l'application pour soutenir la santé mentale ?",
               answer:
                   "L'application offre une gamme de fonctionnalités, y compris des exercices de relaxation, des techniques de respiration, des journaux de suivi émotionnel, des rappels pour la prise de médicaments, des conseils pour la gestion du stress et bien plus encore.",
             ),
@@ -33,11 +38,61 @@ class Aide extends StatelessWidget {
               answer:
                   "Si vous vous trouvez en situation de crise ou avez besoin d'une assistance immédiate, veuillez contacter les services d'urgence de votre région ou utiliser les ressources d'aide disponibles dans l'application. Nous encourageons nos utilisateurs à ne pas hésiter à demander de l'aide en cas de besoin.",
             ),
-            
 
-           //réclamation
+            //réclamation
 
-
+            SizedBox(height: 20),
+            Text(
+              'Faire une réclamation :',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
+            SizedBox(height: 10),
+            TextFormField(
+              controller: _reclamationController,
+              decoration: InputDecoration(
+                labelText: 'Votre réclamation',
+                border: OutlineInputBorder(),
+              ),
+              maxLines: 3,
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                // Obtenir l'utilisateur actuellement authentifié
+                User? user = FirebaseAuth.instance.currentUser;
+                if (user != null) {
+                  // Envoyer la réclamation au backend Firebase Firestore
+                  String reclamationText = _reclamationController.text;
+                  if (reclamationText.isNotEmpty) {
+                    try {
+                      await FirebaseFirestore.instance.collection('reclamations').add({
+                        'email': user.email,
+                        'reclamation': reclamationText,
+                        'timestamp': Timestamp.now(),
+                      });
+                      // Réinitialiser le champ de réclamation après l'envoi
+                      _reclamationController.clear();
+                      // Afficher un message de confirmation
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Réclamation envoyée avec succès !')),
+                      );
+                    } catch (error) {
+                      // Gérer les erreurs
+                      print('Erreur lors de l\'envoi de la réclamation : $error');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Erreur lors de l\'envoi de la réclamation. Veuillez réessayer.')),
+                      );
+                    }
+                  } else {
+                    // Afficher un message si le champ de réclamation est vide
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Veuillez entrer votre réclamation.')),
+                    );
+                  }
+                } 
+              },
+              child: Text('Envoyer la réclamation'),
+            ),
           ],
         ),
       ),
@@ -48,7 +103,8 @@ class Aide extends StatelessWidget {
     return ExpansionTile(
       title: Text(
         question,
-        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red, fontSize: 18.0),
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: Colors.red, fontSize: 18.0),
       ),
       children: [
         Padding(
@@ -62,4 +118,3 @@ class Aide extends StatelessWidget {
     );
   }
 }
-
