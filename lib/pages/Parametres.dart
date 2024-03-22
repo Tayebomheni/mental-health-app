@@ -4,8 +4,10 @@ import 'package:ionicons/ionicons.dart';
 import 'package:pcd/Widgets/custom_item.dart';
 import 'package:pcd/Widgets/forward_button.dart';
 import 'package:pcd/Widgets/setting_item.dart';
+import 'package:pcd/pages/Aide.dart';
 //import 'package:pcd/Widgets/setting_switch.dart';
 import 'package:pcd/pages/Edit_screen.dart';
+import 'package:pcd/pages/confidentialite.dart';
 
 class Parametres extends StatefulWidget {
   const Parametres({super.key});
@@ -28,7 +30,7 @@ class _AccountScreenState extends State<Parametres> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 133, 30, 198),
+      backgroundColor: Colors.white,
       body: Container(
         
         child: SingleChildScrollView(
@@ -43,7 +45,7 @@ class _AccountScreenState extends State<Parametres> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w500,
-                     color: Colors.white,
+                     color: Colors.black,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -62,7 +64,7 @@ class _AccountScreenState extends State<Parametres> {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
-                               color: Colors.white,
+                               color: Colors.black,
                             ),
                           ),
                           SizedBox(height: 10),
@@ -70,7 +72,7 @@ class _AccountScreenState extends State<Parametres> {
                                currentUser?.email ?? "Email",
                             style: TextStyle(
                               fontSize: 14,
-                              color: Colors.grey,
+                              color: Colors.black,
                             ),
                           )
                         ],
@@ -81,7 +83,7 @@ class _AccountScreenState extends State<Parametres> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const EditAccountScreen(),
+                              builder: (context) =>  EditAccountScreen(),
                             ),
                           );
                         },
@@ -95,81 +97,98 @@ class _AccountScreenState extends State<Parametres> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w500,
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
-                padding: const EdgeInsets.all(10.0),
-                
-                color: Color.fromARGB(255, 53, 53, 54),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                
-                SettingItem(
-                  title: "Avis",
-                  icon: Ionicons.star,
-                  bgColor: Color.fromARGB(255, 53, 53, 54),
-                  iconColor: Colors.orange,
-                  onTap: () {},
-                ),
-                const SizedBox(height: 8),
-                SettingItem(
-                  title: "Confidentialité",
-                  icon: Ionicons.shield_checkmark,
-                  bgColor: Color.fromARGB(255, 53, 53, 54),
-                  iconColor: Colors.white,
-                  onTap: () {},
-                ),
-                const SizedBox(height: 8),
-                /*SettingSwitch(
-                  title: "Dark Mode",
-                  icon: Ionicons.earth,
-                  bgColor: Colors.purple.shade100,
-                  iconColor: Colors.purple,
-                  value: isDarkMode,
-                  onTap: (value) {
-                    setState(() {
-                      isDarkMode = value;
-                    });
-                  },
-                ),
-                const SizedBox(height: 20),*/
-                SettingItem(
-                  title: "Aide",
-                  icon: Ionicons.help,
-                  bgColor: Color.fromARGB(255, 53, 53, 54),
-                  iconColor: Colors.white,
-                  onTap: () {},
-                ),
-                const SizedBox(height: 8),
-                CustomItem(
-                  title: "Déconnexion",
-                  icon: Ionicons.log_out,
-                  backgroundColor:  Color.fromARGB(255, 53, 53, 54),
-                  iconColor: Colors.white,
-                 onTap: () async {
-                    setState(() {
-                    _isLoading = true;
-                    });
-                     try {
-              await FirebaseAuth.instance.signOut();
-              Navigator.of(context).pushReplacementNamed('signin');
-            } catch (e) {
-              print("Error during sign out: $e");
-            } finally {
-              await Future.delayed(Duration(seconds: 3));
-              setState(() {
-                _isLoading = false;
-              });
-            }
-          
-                  },
-                  isLoading: _isLoading,
-                  ),
-                    ],
-                  ),
+                Card(
+                  elevation: 5.0,
+                  child: 
+                    Container(
+                    padding: const EdgeInsets.all(10.0),
+                    
+                                   // Couleur de fond personnalisée
+                    
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                    
+                    SettingItem(
+                      title: "Avis",
+                      icon: Ionicons.star,
+                        bgColor: Colors.transparent,
+                      iconColor: Colors.amber,
+                      onTap: () {},
+                    ),
+                    const SizedBox(height: 8),
+                    SettingItem(
+                      title: "Confidentialité",
+                      icon: Ionicons.shield_checkmark,
+                       bgColor: Colors.transparent,
+                      iconColor: Colors.blue,
+                      onTap: () {
+                       Navigator.push(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) =>  confidentialite()),
+            );
+                      },
+                    ),
+                    const SizedBox(height: 8),
+                    /*SettingSwitch(
+                      title: "Dark Mode",
+                      icon: Ionicons.earth,
+                      bgColor: Colors.purple.shade100,
+                      iconColor: Colors.purple,
+                      value: isDarkMode,
+                      onTap: (value) {
+                        setState(() {
+                          isDarkMode = value;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 20),*/
+                    SettingItem(
+                      title: "Aide",
+                      icon: Ionicons.help,
+                      bgColor: Colors.transparent,
+                      iconColor: Colors.lightBlue,
+                      onTap: () {
+                        Navigator.push(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) =>  Aide()),
+                        );
+                    },
+                    ),
+                    const SizedBox(height: 8),
+                    CustomItem(
+                      title: "Déconnexion",
+                      icon: Ionicons.log_out,
+                      
+                      backgroundColor:  Colors.transparent,
+                      iconColor: Colors.red,
+                     onTap: () async {
+                        setState(() {
+                        _isLoading = true;
+                        });
+                         try {
+                                  await FirebaseAuth.instance.signOut();
+                                  Navigator.of(context).pushReplacementNamed('signin');
+                                } catch (e) {
+                                  print("Error during sign out: $e");
+                                } finally {
+                                  await Future.delayed(Duration(seconds: 3));
+                                  setState(() {
+                    _isLoading = false;
+                                  });
+                                }
+                              
+                      },
+                      isLoading: _isLoading,
+                      ),
+                        ],
+                      ),
+                    ),
+                  
                 ),
               ],
             ),

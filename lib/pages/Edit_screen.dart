@@ -1,141 +1,233 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:pcd/Widgets/edit_item.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditAccountScreen extends StatefulWidget {
-  const EditAccountScreen({super.key});
-
   @override
-  State<EditAccountScreen> createState() => _EditAccountScreenState();
+  _EditProfilePageState createState() => _EditProfilePageState();
 }
 
-class _EditAccountScreenState extends State<EditAccountScreen> {
-  String gender = "man";
+class _EditProfilePageState extends State<EditAccountScreen> {
+  bool showPassword = false;
+  File? file;
+
+  getImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagecamera =
+        await picker.pickImage(source: ImageSource.camera);
+
+    if (imagecamera == null) {
+      // L'utilisateur a annulé la sélection de la photo
+      return; // Sortie de la fonction
+    }
+
+    // Une image a été sélectionnée, mettez à jour le fichier et l'état
+    file = File(imagecamera.path);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 1,
         leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.green,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(Ionicons.chevron_back_outline),
         ),
-        leadingWidth: 80,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
-              onPressed: () {},
-              style: IconButton.styleFrom(
-                backgroundColor: Colors.lightBlueAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                fixedSize: Size(60, 50),
-                elevation: 3,
-              ),
-              icon: Icon(Ionicons.checkmark, color: Colors.white),
-            ),
-          ),
-        ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      body: Container(
+        padding: EdgeInsets.only(left: 16, top: 15, right: 16),
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: ListView(
             children: [
-              const Text(
-                "Account",
-                style: TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                ),
+              Text(
+                "Modifier le profil",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
               ),
-              const SizedBox(height: 40),
-              EditItem(
-                title: "Photo",
-                widget: Column(
+              SizedBox(
+                height: 15,
+              ),
+              Center(
+                child: Stack(
                   children: [
-                    Image.asset(
-                      "assets/icons/avatar.png",
-                      height: 100,
-                      width: 100,
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        foregroundColor: Colors.lightBlueAccent,
+                    Container(
+                      width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 4,
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            spreadRadius: 2,
+                            blurRadius: 10,
+                            color: Colors.black.withOpacity(0.1),
+                            offset: Offset(0, 10),
+                          )
+                        ],
+                        shape: BoxShape.circle,
+                        image: file != null
+                            ? DecorationImage(
+                                fit: BoxFit.cover,
+                                image: Image.file(file!).image,
+                              )
+                            : DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage("assets/icons/avatar.png"),
+                              ),
                       ),
-                      child: const Text("Upload Image"),
-                    )
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: GestureDetector(
+                        onTap: () async {
+                          // Action à exécuter lorsque l'icône est tapée
+                          await getImage();
+                        },
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              width: 4,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                            color: Colors.green,
+                          ),
+                          child: Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              const EditItem(
-                title: "Name",
-                widget: TextField(),
+              SizedBox(
+                height: 35,
               ),
-              const SizedBox(height: 40),
-              EditItem(
-                title: "Gender",
-                widget: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          gender = "man";
-                        });
-                      },
-                      style: IconButton.styleFrom(
-                        backgroundColor: gender == "man"
-                            ? Colors.deepPurple
-                            : Colors.grey.shade200,
-                        fixedSize: const Size(50, 50),
+              buildTextField("Full Name", "", false),
+              buildTextField("E-mail", "", false),
+              buildTextField("Password", "", true),
+              buildTextField("Location", "", false),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      // Action à exécuter lorsque le bouton "CANCEL" est pressé
+                      Navigator.pop(
+                          context); // Ferme l'écran d'édition du profil
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        EdgeInsets.symmetric(horizontal: 50),
                       ),
-                      icon: Icon(
-                        Ionicons.male,
-                        color: gender == "man" ? Colors.white : Colors.black,
-                        size: 18,
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      side: MaterialStateProperty.all<BorderSide>(
+                        BorderSide(
+                          color: Colors.black,
+                          width: 1.5,
+                        ),
                       ),
                     ),
-                    const SizedBox(width: 20),
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          gender = "woman";
-                        });
-                      },
-                      style: IconButton.styleFrom(
-                        backgroundColor: gender == "woman"
-                            ? Colors.deepPurple
-                            : Colors.grey.shade200,
-                        fixedSize: const Size(50, 50),
+                    child: Text(
+                      "CANCEL",
+                      style: TextStyle(
+                        fontSize: 14,
+                        letterSpacing: 2.2,
+                        color: Colors.black,
                       ),
-                      icon: Icon(
-                        Ionicons.female,
-                        color: gender == "woman" ? Colors.white : Colors.black,
-                        size: 18,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Action à exécuter lorsque le bouton "SAVE" est pressé
+                      // Mettre en œuvre la logique de sauvegarde des modifications du profil
+
+
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.green),
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        EdgeInsets.symmetric(horizontal: 50),
                       ),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 40),
-              const EditItem(
-                widget: TextField(),
-                title: "Age",
-              ),
-              const SizedBox(height: 40),
-              const EditItem(
-                widget: TextField(),
-                title: "Email",
-              ),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      "SAVE",
+                      style: TextStyle(
+                        fontSize: 14,
+                        letterSpacing: 2.2,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildTextField(
+      String labelText, String placeholder, bool isPasswordTextField) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 35.0),
+      child: TextField(
+        obscureText: isPasswordTextField ? showPassword : false,
+        decoration: InputDecoration(
+            suffixIcon: isPasswordTextField
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        showPassword = !showPassword;
+                      });
+                    },
+                    icon: Icon(
+                      Icons.remove_red_eye,
+                      color: Colors.grey,
+                    ),
+                  )
+                : null,
+            contentPadding: EdgeInsets.only(bottom: 3),
+            labelText: labelText,
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            hintText: placeholder,
+            hintStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            )),
       ),
     );
   }

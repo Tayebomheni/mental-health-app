@@ -39,11 +39,11 @@ class _navbarState extends State<navbar> {
             label: 'Principal',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
+            icon: Icon(Icons.psychology),
             label: 'Thérapie',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.spa),
             label: 'Exercices',
           ),
           BottomNavigationBarItem(

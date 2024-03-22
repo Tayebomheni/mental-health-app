@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pcd/color_utils.dart';
@@ -15,7 +16,8 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
-  bool _isLoading = false;
+  bool _isLoading =
+      false; //initialisation de l'état de l'indicateur de changement
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +30,16 @@ class _SignInScreenState extends State<SignInScreen> {
             hexStringToColor("CB2B93"),
             hexStringToColor("9546C4"),
             hexStringToColor("5E61F4")
-          
-           
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
         ),
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.fromLTRB(20, MediaQuery.of(context).size.height * 0.1, 20, 0,),
+            padding: EdgeInsets.fromLTRB(
+              20,
+              MediaQuery.of(context).size.height * 0.1,
+              20,
+              0,
+            ),
             child: Column(
               children: <Widget>[
                 Image.asset(
@@ -69,14 +74,16 @@ class _SignInScreenState extends State<SignInScreen> {
                 _isLoading
                     ? CircularProgressIndicator()
                     : firebaseUIButton(context, "Se connecter", () async {
+                        //ajouter un boutton se connecter
                         try {
                           setState(() {
-                            _isLoading = true;
+                            _isLoading =
+                                true; //changement de l'état de l'indicateur de changement
                           });
 
                           // ignore: unused_local_variable
-                          final credential =
-                              await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          final credential = await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
                             email: _emailTextController.text,
                             password: _passwordTextController.text,
                           );
@@ -85,11 +92,34 @@ class _SignInScreenState extends State<SignInScreen> {
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'user-not-found') {
                             print('No user found for that email.');
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.warning,
+                              headerAnimationLoop: false,
+                              animType: AnimType.bottomSlide,
+                              title: 'Error',
+                              desc: 'No user found for that email.',
+                              buttonsTextStyle:
+                                  const TextStyle(color: Colors.black),
+                              showCloseIcon: true,
+                            ).show();
                           } else if (e.code == 'wrong-password') {
                             print('Wrong password provided for that user.');
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.warning,
+                              headerAnimationLoop: false,
+                              animType: AnimType.bottomSlide,
+                              title: 'Error',
+                              desc: 'Wrong password provided for that user.',
+                              buttonsTextStyle:
+                                  const TextStyle(color: Colors.black),
+                              showCloseIcon: true,
+                            ).show();
                           }
                         } finally {
-                          await Future.delayed(Duration(seconds: 3)); // Ajout du délai de 3 secondes
+                          await Future.delayed(Duration(
+                              seconds: 3)); // Ajout du délai de 3 secondes
                           setState(() {
                             _isLoading = false;
                           });
@@ -112,8 +142,8 @@ class _SignInScreenState extends State<SignInScreen> {
             style: TextStyle(color: Colors.white70)),
         GestureDetector(
           onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SignUpScreen()));
           },
           child: const Text(
             " S'inscrire",

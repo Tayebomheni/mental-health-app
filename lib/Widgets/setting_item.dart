@@ -15,7 +15,7 @@ class SettingItem extends StatelessWidget {
     required this.iconColor,
     required this.icon,
     required this.onTap,
-    this.textColor = Colors.white,
+    this.textColor = Colors.black,
     this.value,
   });
 

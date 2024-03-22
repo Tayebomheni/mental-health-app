@@ -12,10 +12,12 @@ class _PrincipalState extends State<Principal> {
     // Ajoutez votre logique ou action ici
     print("Container cliqué !");
   }
+  bool isLoading=false;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return  Padding(
+      
       padding: const EdgeInsets.all(16.0),
       child: ListView(
         children: [
@@ -54,7 +56,7 @@ class _PrincipalState extends State<Principal> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16.0),
               child: Image.asset(
-                'assets/icons/apprentissage.png',
+                'assets/icons/appr1.jpeg',
                 fit: BoxFit.cover,
               ),
             ),
@@ -95,13 +97,73 @@ class _PrincipalState extends State<Principal> {
   ),
 )
 ,
-          Card(
+
+
+
+Card(
   elevation: 5.0,
   margin: EdgeInsets.all(10.0),
   child: GestureDetector(
     onTap: () {
       // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
       print("La deuxième carte a été cliquée !");
+      // Vous pouvez ajouter d'autres logiques ou navigations ici
+    },
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 110.0,
+          width: MediaQuery.of(context).size.width * 0.3,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: Image.asset(
+              'assets/icons/chatbot.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        SizedBox(width: 8.0),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Text(
+                  'Discuter avec un chatbot ',
+                  style: TextStyle(
+                    fontSize: 15.5,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 2.0),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(
+                    'Interagir avec un chatbot qui fournit un soutien, des conseils et des informations sur la santé mentale !',
+                    style: TextStyle(
+                      fontSize: 11,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+)
+,
+
+
+          Card(
+  elevation: 5.0,
+  margin: EdgeInsets.all(10.0),
+  child: GestureDetector(
+    onTap: () {
+      // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
+      print("La troisième carte a été cliquée !");
       // Vous pouvez ajouter d'autres logiques ou navigations ici
     },
     child: Row(
@@ -150,7 +212,9 @@ class _PrincipalState extends State<Principal> {
   ),
 )
 ,
-          Card(
+
+
+        /*  Card(         
   elevation: 5.0,
   margin: EdgeInsets.all(10.0),
   child: GestureDetector(
@@ -204,7 +268,7 @@ class _PrincipalState extends State<Principal> {
     ),
   ),
 )
-,
+,*/
         ],
       ),
     );
