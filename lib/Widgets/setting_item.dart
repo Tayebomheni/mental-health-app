@@ -7,7 +7,7 @@ class SettingItem extends StatelessWidget {
   final IconData icon;
   final Function() onTap;
   final String? value;
-  final Color textColor;
+ 
 
   const SettingItem({
     required this.title,
@@ -15,7 +15,7 @@ class SettingItem extends StatelessWidget {
     required this.iconColor,
     required this.icon,
     required this.onTap,
-    this.textColor = Colors.black,
+    
     this.value,
   });
 
@@ -44,7 +44,7 @@ class SettingItem extends StatelessWidget {
               style: TextStyle(  // Retirez le `const` ici
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                color: textColor,
+                
               ),
             ),
             const Spacer(),

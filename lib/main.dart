@@ -5,6 +5,9 @@ import 'package:pcd/SplashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:pcd/signin_screen.dart';
 import 'package:pcd/signup_screen.dart';
+import 'package:pcd/theme/theme.dart';
+import 'package:pcd/theme/themeprovider.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -19,7 +22,12 @@ void main() async {
       storageBucket: "gs://signin-b0256.appspot.com"
   ));
   
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create:(context) => ThemeProvider(),
+      child: const  MyApp(),
+      )
+  );
 }
 
 class MyApp extends StatefulWidget{
@@ -48,6 +56,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: Provider.of<ThemeProvider>(context).themeData,
+      
       debugShowCheckedModeBanner: false,
       home: FirebaseAuth.instance.currentUser ==null ? SplashScreen() : navbar(),
       routes: {"signin":(context)=>SignInScreen(),

@@ -16,72 +16,135 @@ class _PrincipalState extends State<Principal> {
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
+    return  Container(
+      color : Theme.of(context).colorScheme.background,
+      child: Padding(
+        
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          children: [
+            Text(
+              "Découvrir le fonctionnement de l'application !",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              "Nous utilisons une méthode efficace pour surmonter les problèmes psychologiques. Mais elle nécessite de la compréhension. Suivez quelques étapes d'introduction",
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+            SizedBox(height: 10),
+            Card(
+        elevation: 5.0,
+        color: Theme.of(context).colorScheme.primary,
+        margin: EdgeInsets.all(10.0),
+        child: GestureDetector(
+      onTap: () {
+        // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
+        print("La carte a été cliquée !");
+        // Vous pouvez ajouter d'autres logiques ou navigations ici
+      },
+      child: Container(
+        width: double.infinity,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 106.0,
+              width: MediaQuery.of(context).size.width * 0.3,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16.0),
+                child: Image.asset(
+                  'assets/icons/apprentissage3.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            SizedBox(width: 8.0),
+            Expanded(
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text(
+                        'Commencer l\'apprentissage',
+                        style: TextStyle(
+                          fontSize: 15.5,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 2.0),
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Text(
+                        'Familiariser vous avec le concept de thérapie pour comprendre ses principes!',
+                        style: TextStyle(
+                          fontSize: 11,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+        ),
+      )
+      ,
       
-      padding: const EdgeInsets.all(16.0),
-      child: ListView(
-        children: [
-          Text(
-            "Découvrir le fonctionnement de l'application !",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          SizedBox(height: 10),
-          Text(
-            "Nous utilisons une méthode efficace pour surmonter les problèmes psychologiques. Mais elle nécessite de la compréhension. Suivez quelques étapes d'introduction",
-            style: TextStyle(
-              fontSize: 18,
-            ),
-          ),
-          SizedBox(height: 10),
-          Card(
-  elevation: 5.0,
-  margin: EdgeInsets.all(10.0),
-  child: GestureDetector(
-    onTap: () {
-      // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
-      print("La carte a été cliquée !");
-      // Vous pouvez ajouter d'autres logiques ou navigations ici
-    },
-    child: Container(
-      width: double.infinity,
+      
+      
+      Card(
+        elevation: 5.0,
+        color: Theme.of(context).colorScheme.primary,
+        margin: EdgeInsets.all(10.0),
+        child: GestureDetector(
+      onTap: () {
+        // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
+        print("La deuxième carte a été cliquée !");
+        // Vous pouvez ajouter d'autres logiques ou navigations ici
+      },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 106.0,
+            height: 110.0,
             width: MediaQuery.of(context).size.width * 0.3,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(10.0),
               child: Image.asset(
-                'assets/icons/appr1.jpeg',
+                'assets/icons/chatbot.png',
                 fit: BoxFit.cover,
               ),
             ),
           ),
           SizedBox(width: 8.0),
           Expanded(
-            child: Container(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Text(
-                      'Commencer l\'apprentissage',
-                      style: TextStyle(
-                        fontSize: 15.5,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  Text(
+                    'Discuter avec un chatbot ',
+                    style: TextStyle(
+                      fontSize: 15.5,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(height: 2.0),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Text(
-                      'Familiariser vous avec le concept de thérapie pour comprendre ses principes!',
+                      'Interagir avec un chatbot qui fournit un soutien, des conseils et des informations sur la santé mentale !',
                       style: TextStyle(
                         fontSize: 11,
                       ),
@@ -93,183 +156,126 @@ class _PrincipalState extends State<Principal> {
           ),
         ],
       ),
-    ),
-  ),
-)
-,
-
-
-
-Card(
-  elevation: 5.0,
-  margin: EdgeInsets.all(10.0),
-  child: GestureDetector(
-    onTap: () {
-      // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
-      print("La deuxième carte a été cliquée !");
-      // Vous pouvez ajouter d'autres logiques ou navigations ici
-    },
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: 110.0,
-          width: MediaQuery.of(context).size.width * 0.3,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: Image.asset(
-              'assets/icons/chatbot.png',
-              fit: BoxFit.cover,
+        ),
+      )
+      ,
+      
+      
+            Card(
+        elevation: 5.0,
+        color: Theme.of(context).colorScheme.primary,
+        margin: EdgeInsets.all(10.0),
+        child: GestureDetector(
+      onTap: () {
+        // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
+        print("La troisième carte a été cliquée !");
+        // Vous pouvez ajouter d'autres logiques ou navigations ici
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 105.0,
+            width: MediaQuery.of(context).size.width * 0.3,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Image.asset(
+                'assets/icons/test3.png',
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-        SizedBox(width: 8.0),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Text(
-                  'Discuter avec un chatbot ',
-                  style: TextStyle(
-                    fontSize: 15.5,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 2.0),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    'Interagir avec un chatbot qui fournit un soutien, des conseils et des informations sur la santé mentale !',
+          SizedBox(width: 8.0),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Text(
+                    'Passer un test ',
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 15.5,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    ),
-  ),
-)
-,
-
-
-          Card(
-  elevation: 5.0,
-  margin: EdgeInsets.all(10.0),
-  child: GestureDetector(
-    onTap: () {
-      // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
-      print("La troisième carte a été cliquée !");
-      // Vous pouvez ajouter d'autres logiques ou navigations ici
-    },
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: 100.0,
-          width: MediaQuery.of(context).size.width * 0.3,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: Image.asset(
-              'assets/icons/test1.webp',
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        SizedBox(width: 8.0),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Text(
-                  'Passer un test ',
-                  style: TextStyle(
-                    fontSize: 15.5,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 2.0),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    'Evaluer l\'état psychologique actuel !',
-                    style: TextStyle(
-                      fontSize: 11,
+                  SizedBox(height: 2.0),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(
+                      'Evaluer l\'état psychologique actuel !',
+                      style: TextStyle(
+                        fontSize: 11,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ],
-    ),
-  ),
-)
-,
-
-
-        /*  Card(         
-  elevation: 5.0,
-  margin: EdgeInsets.all(10.0),
-  child: GestureDetector(
-    onTap: () {
-      // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
-      print("La troisième carte a été cliquée !");
-      // Vous pouvez ajouter d'autres logiques ou navigations ici
-    },
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: 110.0,
-          width: MediaQuery.of(context).size.width * 0.3,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: Image.asset(
-              'assets/icons/journal1.webp',
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        SizedBox(width: 8.0),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Column(
-              children: [
-                Text(
-                  'Créer une entrée dans le journal',
-                  style: TextStyle(
-                    fontSize: 15.5,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 2.0),
-                Padding(
-                  padding: const EdgeInsets.all(7.0),
-                  child: Text(
-                    'Commencer le travail pratique pour changer les pensées !',
-                    style: TextStyle(
-                      fontSize: 11,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    ),
-  ),
-)
-,*/
         ],
+      ),
+        ),
+      )
+      ,
+      
+      
+          /*  Card(         
+        elevation: 5.0,
+        margin: EdgeInsets.all(10.0),
+        child: GestureDetector(
+      onTap: () {
+        // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
+        print("La troisième carte a été cliquée !");
+        // Vous pouvez ajouter d'autres logiques ou navigations ici
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 110.0,
+            width: MediaQuery.of(context).size.width * 0.3,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Image.asset(
+                'assets/icons/journal1.webp',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SizedBox(width: 8.0),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Column(
+                children: [
+                  Text(
+                    'Créer une entrée dans le journal',
+                    style: TextStyle(
+                      fontSize: 15.5,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 2.0),
+                  Padding(
+                    padding: const EdgeInsets.all(7.0),
+                    child: Text(
+                      'Commencer le travail pratique pour changer les pensées !',
+                      style: TextStyle(
+                        fontSize: 11,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+        ),
+      )
+      ,*/
+          ],
+        ),
       ),
     );
   }

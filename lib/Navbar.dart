@@ -11,6 +11,7 @@ class navbar extends StatefulWidget {
 }
 class _navbarState extends State<navbar> {
   int _selectedIndex = 0;
+   bool isDarkMode = false;
 
   static const List<Widget> _widgetOptions = <Widget>[
     Principal(),
@@ -53,7 +54,8 @@ class _navbarState extends State<navbar> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue[800],
-        unselectedItemColor: Colors.black,
+         unselectedItemColor: isDarkMode ? Colors.white : Colors.black,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         onTap: _onItemTapped,
       ),
     );

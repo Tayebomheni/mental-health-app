@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -32,29 +33,48 @@ class _EditProfilePageState extends State<EditAccountScreen> {
     _passwordTextController = TextEditingController();
   }
 
-getImage() async {
-  final ImagePicker picker = ImagePicker();
-  final XFile? imagecamera = await picker.pickImage(source: ImageSource.camera);
+  // Mettre à jour la méthode getImage comme suit
+  Future<void> getImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagecamera =
+        await picker.pickImage(source: ImageSource.camera);
 
-  if (imagecamera != null) {
-    // Récupérer l'utilisateur connecté
-    final user = FirebaseAuth.instance.currentUser;
-    
-    if (user != null) {
-      // Une image a été sélectionnée, mettez à jour le fichier et l'état
-      file = File(imagecamera.path);
+    if (imagecamera != null) {
+      // Récupérer l'utilisateur connecté
+      final user = FirebaseAuth.instance.currentUser;
 
-      // Générer un nom de fichier unique basé sur l'horodatage actuel et l'UID de l'utilisateur
-      String fileName = DateTime.now().millisecondsSinceEpoch.toString() + '_' + user.uid + '.jpg';
-      
-      var refstorage = FirebaseStorage.instance.ref().child(fileName);
-      await refstorage.putFile(file!);
+      if (user != null) {
+        // Une image a été sélectionnée, mettez à jour le fichier et l'état
+        file = File(imagecamera.path);
 
-      setState(() {});
+        // Générer un nom de fichier unique basé sur l'horodatage actuel et l'UID de l'utilisateur
+        String fileName =
+            DateTime.now().millisecondsSinceEpoch.toString() +
+                '_' +
+                user.uid +
+                '.jpg';
+
+        var refstorage = FirebaseStorage.instance.ref().child(fileName);
+        var uploadTask = refstorage.putFile(file!);
+
+        // Attendre que le téléchargement soit terminé
+        await uploadTask.whenComplete(() async {
+          // Récupérer l'URL de l'image téléchargée
+          String imageURL = await refstorage.getDownloadURL();
+
+          // Enregistrer l'URL de l'image dans Firestore
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .update({
+            'profileImage': imageURL,
+          });
+        });
+
+        setState(() {});
+      }
     }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -150,137 +170,46 @@ getImage() async {
               SizedBox(
                 height: 35,
               ),
-              buildTextField("Full Name", _userNameTextController, false),
+              buildTextField("Nom", _userNameTextController, false),
               buildTextField("E-mail", _emailTextController, false),
-              buildTextField("Password", _passwordTextController, true),
+              buildTextField("Mot de passe", _passwordTextController, true),
               //buildTextField("Location", "", false),
               SizedBox(
                 height: 5,
               ),
-              Row(
+              Row
+(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      // Action à exécuter lorsque le bouton "CANCEL" est pressé
-                      Navigator.pop(
-                          context); // Ferme l'écran d'édition du profil
-                    },
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.symmetric(horizontal: 50),
-                      ),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () async {
+                          // Alerte pour vérifier l'authentification de l'utilisateur 
+                          _showPasswordConfirmationDialog(context);
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                            EdgeInsets.symmetric(horizontal: 50),
+                          ),
+                          shape: MaterialStateProperty.all<OutlinedBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          "ENREGISTRER",
+                          style: TextStyle(
+                            fontSize: 14,
+                            letterSpacing: 2.2,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                      side: MaterialStateProperty.all<BorderSide>(
-                        BorderSide(
-                          color: Colors.black,
-                          width: 1.5,
-                        ),
-                      ),
-                    ),
-                    child: Text(
-                      "CANCEL",
-                      style: TextStyle(
-                        fontSize: 14,
-                        letterSpacing: 2.2,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      // Action à exécuter lorsque le bouton "SAVE" est pressé
-                      final user = FirebaseAuth.instance.currentUser;
-                      if (user != null) {
-                        try {
-                          // Mettre à jour le nom d'utilisateur
-                          await user
-                              .updateDisplayName(_userNameTextController.text);
-
-                          // Mettre à jour l'e-mail si l'utilisateur a modifié l'e-mail
-                          if (_emailTextController.text != user.email) {
-                            await user.verifyBeforeUpdateEmail(
-                                _emailTextController.text);
-                          }
-
-                          // Mettre à jour le mot de passe si l'utilisateur a saisi un nouveau mot de passe
-                          if (_passwordTextController.text.isNotEmpty) {
-                            await user
-                                .updatePassword(_passwordTextController.text);
-                          }
-
-                          // Afficher une boîte de dialogue pour informer l'utilisateur que les modifications ont été enregistrées avec succès
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text('Modifications enregistrées'),
-                                content: Text(
-                                    'Vos informations ont été mises à jour avec succès.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => Parametres()),
-                        );
-                                    },
-                                    child: Text('OK'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        } catch (error) {
-                          // Gérer les erreurs
-                          print(
-                              'Erreur lors de la mise à jour du profil : $error');
-                          // Afficher un message d'erreur à l'utilisateur
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text('Erreur'),
-                                content: Text(
-                                    'Une erreur s\'est produite lors de la mise à jour de votre profil. Veuillez réessayer.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text('OK'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                      }
-                    },
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.green),
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.symmetric(horizontal: 50),
-                      ),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                    ),
-                    child: Text(
-                      "SAVE",
-                      style: TextStyle(
-                        fontSize: 14,
-                        letterSpacing: 2.2,
-                        color: Colors.white,
-                      ),
-                    ),
+                    ],
                   ),
                 ],
               )
@@ -297,7 +226,7 @@ getImage() async {
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextField(
         controller: controller,
-        obscureText: isPasswordTextField ? showPassword : false,
+        obscureText: isPasswordTextField ? !showPassword : false,
         onChanged: (value) {
           setState(() {
             // Mettre à jour la valeur dans le contrôleur de texte
@@ -305,29 +234,129 @@ getImage() async {
           });
         },
         decoration: InputDecoration(
-            suffixIcon: isPasswordTextField
-                ? IconButton(
-                    onPressed: () {
-                      setState(() {
-                        showPassword = !showPassword;
-                      });
-                    },
-                    icon: Icon(
-                      Icons.remove_red_eye,
-                      color: Colors.grey,
-                    ),
-                  )
-                : null,
-            contentPadding: EdgeInsets.only(bottom: 3),
-            labelText: labelText,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            hintText: labelText,
-            hintStyle: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            )),
+          suffixIcon: isPasswordTextField
+              ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      showPassword = !showPassword;
+                    });
+                  },
+                  icon: Icon(
+                    showPassword ? Icons.visibility_off : Icons.remove_red_eye,
+                    color: Colors.black,
+                  ),
+                )
+              : null,
+          contentPadding: EdgeInsets.only(bottom: 3),
+          labelText: labelText,
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          hintText: labelText,
+          hintStyle: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
       ),
     );
+  }
+
+
+  Future<void> _showPasswordConfirmationDialog(BuildContext context) async {
+    TextEditingController passwordController = TextEditingController();
+
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm Password'),
+          content: TextFormField(
+            decoration: InputDecoration(labelText: 'Enter Your Password'),
+            obscureText: true,
+            controller: passwordController,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                String enteredPassword = passwordController.text.trim();
+
+                // Vérifier le mot de passe
+                try {
+                  // Demander à l'utilisateur de réauthentifier avec son mot de passe actuel
+                  AuthCredential credential = EmailAuthProvider.credential(
+                    email: FirebaseAuth.instance.currentUser!.email!,
+                    password: enteredPassword,
+                  );
+                  await FirebaseAuth.instance.currentUser!
+                      .reauthenticateWithCredential(credential);
+
+                  // Si la réauthentification réussit, mettre à jour les informations du compte
+                  _updateAccountInfo(context);
+
+                  Navigator.pop(context); // Fermer la boîte de dialogue
+                } catch (error) {
+                  // Si la réauthentification échoue, afficher un message d'erreur
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Incorrect password. Please try again.'),
+                    ),
+                  );
+                }
+              },
+              child: Text('Confirm'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Fermer la boîte de dialogue
+              },
+              child: Text('Cancel'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _updateAccountInfo(BuildContext context) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      // Mettre à jour l'e-mail si un nouvel e-mail est saisi
+      if (_emailTextController.text.isNotEmpty &&
+          _emailTextController.text != user!.email) {
+        await user.verifyBeforeUpdateEmail(_emailTextController.text);
+      }
+
+      // Mettre à jour le nom d'utilisateur si un nouveau nom est saisi
+      if (_userNameTextController.text.isNotEmpty &&
+          _userNameTextController.text != user!.displayName) {
+        await user.updateDisplayName(_userNameTextController.text);
+      }
+
+      // Mettre à jour le mot de passe si un nouveau mot de passe est saisi
+      if (_passwordTextController.text.isNotEmpty) {
+        await user!.updatePassword(_passwordTextController.text);
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Account information updated successfully.'),
+        ),
+      );
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to update account information: $error'),
+        ),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _passwordTextController.dispose();
+    _emailTextController.dispose();
+    _userNameTextController.dispose();
+    super.dispose();
   }
 }

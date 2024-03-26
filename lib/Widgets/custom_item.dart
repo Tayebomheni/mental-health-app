@@ -9,7 +9,7 @@ class CustomItem extends StatelessWidget {
   final String? value;
   final double iconSize;
   final double containerSize;
-  final Color textColor;
+  
 
   const CustomItem({
     Key? key,
@@ -21,7 +21,7 @@ class CustomItem extends StatelessWidget {
     this.value,
     this.iconSize = 24.0,
     this.containerSize = 50.0,
-    this.textColor = Colors.black, required bool isLoading,
+    required bool isLoading,
   }) : super(key: key);
 
   @override
@@ -55,7 +55,7 @@ class CustomItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
-                  color: textColor,
+                  
                 ),
               ),
               const Spacer(),
