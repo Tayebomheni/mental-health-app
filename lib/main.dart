@@ -1,3 +1,4 @@
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pcd/Navbar.dart';
@@ -8,6 +9,7 @@ import 'package:pcd/signup_screen.dart';
 import 'package:pcd/theme/theme.dart';
 import 'package:pcd/theme/themeprovider.dart';
 import 'package:provider/provider.dart';
+
 
 
 
@@ -22,6 +24,10 @@ void main() async {
       storageBucket: "gs://signin-b0256.appspot.com"
   ));
   
+ /* await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.playIntegrity,
+  );*/
+  
   runApp(
     ChangeNotifierProvider(
       create:(context) => ThemeProvider(),
@@ -30,39 +36,34 @@ void main() async {
   );
 }
 
-class MyApp extends StatefulWidget{
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  late User? _currentUser;
 
   @override
   void initState() {
-    FirebaseAuth.instance
-  .authStateChanges()
-  .listen((User? user) {
-    if (user == null) {
-      print('User is currently signed out!');
-    } else {
-      print('User is signed in!');
-    }
-  });
     super.initState();
+    _currentUser = FirebaseAuth.instance.currentUser;
   }
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDarkMode = themeProvider.themeData == darkMode; // Déduit si le thème est sombre ou non
     return MaterialApp(
-      theme: Provider.of<ThemeProvider>(context).themeData,
-      
+      theme: themeProvider.themeData,
       debugShowCheckedModeBanner: false,
-      home: FirebaseAuth.instance.currentUser ==null ? SplashScreen() : navbar(),
-      routes: {"signin":(context)=>SignInScreen(),
-      "signup":(context)=>SignUpScreen(),
-      "navbar":(context)=>navbar(),
+      home: _currentUser == null ? SplashScreen() : navbar(isDarkMode: isDarkMode),
+      routes: {
+        "signin": (context) => SignInScreen(),
+        "signup": (context) => SignUpScreen(),
+        "navbar": (context) => navbar(isDarkMode: isDarkMode),
       },
     );
   }

@@ -37,7 +37,7 @@ class _PrincipalState extends State<Principal> {
                 fontSize: 18,
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 8),
             Card(
         elevation: 5.0,
         color: Theme.of(context).colorScheme.primary,
@@ -71,7 +71,7 @@ class _PrincipalState extends State<Principal> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Text(
                         'Commencer l\'apprentissage',
                         style: TextStyle(
@@ -82,7 +82,7 @@ class _PrincipalState extends State<Principal> {
                     ),
                     SizedBox(height: 2.0),
                     Padding(
-                      padding: const EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Text(
                         'Familiariser vous avec le concept de thérapie pour comprendre ses principes!',
                         style: TextStyle(
@@ -102,7 +102,7 @@ class _PrincipalState extends State<Principal> {
       ,
       
       
-      
+       
       Card(
         elevation: 5.0,
         color: Theme.of(context).colorScheme.primary,
@@ -117,12 +117,12 @@ class _PrincipalState extends State<Principal> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 110.0,
+            height: 115.0,
             width: MediaQuery.of(context).size.width * 0.3,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
               child: Image.asset(
-                'assets/icons/chatbot.png',
+                'assets/icons/chatbot4.png',
                 fit: BoxFit.cover,
               ),
             ),
@@ -162,61 +162,64 @@ class _PrincipalState extends State<Principal> {
       
       
             Card(
-        elevation: 5.0,
-        color: Theme.of(context).colorScheme.primary,
-        margin: EdgeInsets.all(10.0),
-        child: GestureDetector(
-      onTap: () {
-        // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
-        print("La troisième carte a été cliquée !");
-        // Vous pouvez ajouter d'autres logiques ou navigations ici
-      },
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 105.0,
-            width: MediaQuery.of(context).size.width * 0.3,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
-              child: Image.asset(
-                'assets/icons/test3.png',
-                fit: BoxFit.cover,
-              ),
+  elevation: 5.0,
+  color: Theme.of(context).colorScheme.primary,
+  margin: EdgeInsets.all(10.0),
+  child: GestureDetector(
+    onTap: () {
+      // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
+      print("La troisième carte a été cliquée !");
+      // Vous pouvez ajouter d'autres logiques ou navigations ici
+    },
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      
+      children: [
+        Container(
+          height: 105.0,
+          width: MediaQuery.of(context).size.width * 0.3,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: Image.asset(
+              'assets/icons/test4.png',
+              fit: BoxFit.cover,
             ),
           ),
-          SizedBox(width: 8.0),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text(
-                    'Passer un test ',
-                    style: TextStyle(
-                      fontSize: 15.5,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 2.0),
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text(
-                      'Evaluer l\'état psychologique actuel !',
-                      style: TextStyle(
-                        fontSize: 11,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
         ),
-      )
-      ,
+        SizedBox(width: 8.0),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Passer un test ',
+                  style: TextStyle(
+                    fontSize: 15.5,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 2.0),
+                Padding(
+                 // padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 2.0, top: 8.0),
+                  child: Text(
+                    'Evaluer l\'état psychologique actuel !',
+                    style: TextStyle(
+                      fontSize: 11,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+),
+
       
       
           /*  Card(         

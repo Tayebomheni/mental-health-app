@@ -12,6 +12,8 @@ import 'package:pcd/pages/confidentialite.dart';
 import 'package:pcd/theme/themeprovider.dart';
 import 'package:provider/provider.dart';
 
+
+
 class Parametres extends StatefulWidget {
   const Parametres({Key? key}) : super(key: key);
 
@@ -229,22 +231,22 @@ class _AccountScreenState extends State<Parametres> {
                         ),
                         const SizedBox(height: 8),
                        SettingSwitch(
-  title: 'Mode Sombre',
-  value: isDarkModeEnabled, // Utilisation de la valeur de l'état du thème
-  onTap: (value) {
-    setState(() {
-      // Mettre à jour l'état du thème sombre en fonction de la valeur du switch
-      isDarkModeEnabled = value;
-      Provider.of<ThemeProvider>(context,listen:false).toggleTheme();
-    });
-    // Appliquer le thème approprié
-    _toggleTheme();
-  }, bgColor: Colors.transparent, 
-  iconColor: Colors.blue,
-   icon: Icons.nightlight_round, // Icône représentant le mode sombre ,
-  
-  
-),
+                        title: 'Mode Sombre',
+                        value: isDarkModeEnabled, // Utilisation de la valeur de l'état du thème
+                        onTap: (value) {
+                          setState(() {
+                            // Mettre à jour l'état du thème sombre en fonction de la valeur du switch
+                            isDarkModeEnabled = value;
+                            Provider.of<ThemeProvider>(context,listen:false).toggleTheme();
+                          });
+                          // Appliquer le thème approprié
+                          _toggleTheme();
+                        }, bgColor: Colors.transparent, 
+                        iconColor: Colors.blue,
+                        icon: Icons.nightlight_round, // Icône représentant le mode sombre ,
+                        
+                        
+                        ),
 
 
 

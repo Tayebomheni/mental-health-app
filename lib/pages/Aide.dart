@@ -57,6 +57,19 @@ class Aide extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ElevatedButton(
+             style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+      
+      // Définir la couleur du bouton en fonction du thème
+      return Theme.of(context).secondaryHeaderColor;
+    }),
+    foregroundColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+      // Définir la couleur du texte en fonction du thème
+      return Theme.of(context).textTheme.button!.color!;
+    }),
+                
+                 padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero), // Supprimer le padding par défaut
+              ),
               onPressed: () async {
                 // Obtenir l'utilisateur actuellement authentifié
                 User? user = FirebaseAuth.instance.currentUser;
@@ -91,7 +104,8 @@ class Aide extends StatelessWidget {
                   }
                 } 
               },
-              child: Text('Envoyer la réclamation'),
+              child: Text('Envoyer la réclamation',
+                ),
             ),
           ],
         ),
@@ -104,7 +118,7 @@ class Aide extends StatelessWidget {
       title: Text(
         question,
         style: TextStyle(
-            fontWeight: FontWeight.bold, color: Colors.red, fontSize: 18.0),
+            fontWeight: FontWeight.bold, color: Colors.purple, fontSize: 18.0),
       ),
       children: [
         Padding(

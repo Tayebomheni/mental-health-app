@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pcd/pages/Parametres.dart';
+
 
 class EditAccountScreen extends StatefulWidget {
   @override
@@ -35,46 +35,39 @@ class _EditProfilePageState extends State<EditAccountScreen> {
 
   // Mettre à jour la méthode getImage comme suit
   Future<void> getImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? imagecamera =
-        await picker.pickImage(source: ImageSource.camera);
+  final ImagePicker picker = ImagePicker();
+  final XFile? imageCamera = await picker.pickImage(source: ImageSource.camera);
 
-    if (imagecamera != null) {
-      // Récupérer l'utilisateur connecté
-      final user = FirebaseAuth.instance.currentUser;
+  if (imageCamera != null) {
+    final user = FirebaseAuth.instance.currentUser;
 
-      if (user != null) {
-        // Une image a été sélectionnée, mettez à jour le fichier et l'état
-        file = File(imagecamera.path);
+    if (user != null) {
+      String fileName = DateTime.now().millisecondsSinceEpoch.toString() +
+          '_' +
+          user.uid +
+          '.jpg';
 
-        // Générer un nom de fichier unique basé sur l'horodatage actuel et l'UID de l'utilisateur
-        String fileName =
-            DateTime.now().millisecondsSinceEpoch.toString() +
-                '_' +
-                user.uid +
-                '.jpg';
+      var refStorage = FirebaseStorage.instance.ref().child(fileName);
+      
+      // Utiliser une variable locale pour éviter le null check operator sur file
+      File? imageFile = File(imageCamera.path);
 
-        var refstorage = FirebaseStorage.instance.ref().child(fileName);
-        var uploadTask = refstorage.putFile(file!);
+      var uploadTask = refStorage.putFile(imageFile);
 
-        // Attendre que le téléchargement soit terminé
-        await uploadTask.whenComplete(() async {
-          // Récupérer l'URL de l'image téléchargée
-          String imageURL = await refstorage.getDownloadURL();
+      await uploadTask.whenComplete(() async {
+        String imageURL = await refStorage.getDownloadURL();
 
-          // Enregistrer l'URL de l'image dans Firestore
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(user.uid)
-              .update({
-            'profileImage': imageURL,
-          });
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .update({
+          'profileImage': imageURL,
         });
-
-        setState(() {});
-      }
+      });
     }
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +123,7 @@ class _EditProfilePageState extends State<EditAccountScreen> {
                         image: file != null
                             ? DecorationImage(
                                 fit: BoxFit.cover,
-                                image: Image.file(file!).image,
+                                image: FileImage(file!),
                               )
                             : DecorationImage(
                                 fit: BoxFit.cover,
@@ -177,10 +170,9 @@ class _EditProfilePageState extends State<EditAccountScreen> {
               SizedBox(
                 height: 5,
               ),
-              Row
-(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+              
+                
+                
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -211,8 +203,7 @@ class _EditProfilePageState extends State<EditAccountScreen> {
                       ),
                     ],
                   ),
-                ],
-              )
+                
             ],
           ),
         ),
@@ -243,7 +234,6 @@ class _EditProfilePageState extends State<EditAccountScreen> {
                   },
                   icon: Icon(
                     showPassword ? Icons.visibility_off : Icons.remove_red_eye,
-                    color: Colors.black,
                   ),
                 )
               : null,
@@ -269,9 +259,9 @@ class _EditProfilePageState extends State<EditAccountScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Confirm Password'),
+          title: Text('Confirmation du mot de passe'),
           content: TextFormField(
-            decoration: InputDecoration(labelText: 'Enter Your Password'),
+            decoration: InputDecoration(labelText: 'Entrer votre mot de passe'),
             obscureText: true,
             controller: passwordController,
           ),
@@ -294,6 +284,11 @@ class _EditProfilePageState extends State<EditAccountScreen> {
                   _updateAccountInfo(context);
 
                   Navigator.pop(context); // Fermer la boîte de dialogue
+               
+               
+               
+               
+               
                 } catch (error) {
                   // Si la réauthentification échoue, afficher un message d'erreur
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -305,6 +300,10 @@ class _EditProfilePageState extends State<EditAccountScreen> {
               },
               child: Text('Confirm'),
             ),
+            
+            
+            
+            
             TextButton(
               onPressed: () {
                 Navigator.pop(context); // Fermer la boîte de dialogue
@@ -318,39 +317,75 @@ class _EditProfilePageState extends State<EditAccountScreen> {
   }
 
   void _updateAccountInfo(BuildContext context) async {
+  try {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    // Mettre à jour l'e-mail si un nouvel e-mail est saisi
+    if (_emailTextController.text.isNotEmpty && _emailTextController.text != user!.email) {
+      await user.verifyBeforeUpdateEmail(_emailTextController.text);
+    }
+
+    // Mettre à jour le nom d'utilisateur si un nouveau nom est saisi
+    if (_userNameTextController.text.isNotEmpty && _userNameTextController.text != user!.displayName) {
+      await user.updateDisplayName(_userNameTextController.text);
+    }
+
+    // Mettre à jour le mot de passe si un nouveau mot de passe est saisi
+    if (_passwordTextController.text.isNotEmpty) {
+      await user!.updatePassword(_passwordTextController.text);
+    }
+
+    // Mettre à jour l'image de profil si un fichier est sélectionné
+    if (file != null) {
+      String? profileImageURL = await _sauvegarderImageToStorage(file!);
+      if (profileImageURL != null) {
+        await FirebaseFirestore.instance.collection('users').doc(user?.uid).update({
+          'profileImage': profileImageURL,
+        });
+      }
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Les informations du compte sont mis à jour avec succées'),
+      ),
+    );
+  } catch (error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Failed to update account information: $error'),
+      ),
+    );
+  }
+}
+
+
+// Méthode pour sauvegarder l'image dans Firebase Storage et retourner son URL de téléchargement...
+  Future<String?> _sauvegarderImageToStorage(File imageFile) async {
     try {
-      User? user = FirebaseAuth.instance.currentUser;
+      // Récupérer l'utilisateur connecté
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) return null;
 
-      // Mettre à jour l'e-mail si un nouvel e-mail est saisi
-      if (_emailTextController.text.isNotEmpty &&
-          _emailTextController.text != user!.email) {
-        await user.verifyBeforeUpdateEmail(_emailTextController.text);
-      }
+      // Générer un nom de fichier unique basé sur l'UID de l'utilisateur
+      String fileName = '${user.uid}_${DateTime.now().millisecondsSinceEpoch}.jpg';
 
-      // Mettre à jour le nom d'utilisateur si un nouveau nom est saisi
-      if (_userNameTextController.text.isNotEmpty &&
-          _userNameTextController.text != user!.displayName) {
-        await user.updateDisplayName(_userNameTextController.text);
-      }
+      // Référence au répertoire de stockage Firebase
+      var refStorage = FirebaseStorage.instance.ref().child(fileName);
 
-      // Mettre à jour le mot de passe si un nouveau mot de passe est saisi
-      if (_passwordTextController.text.isNotEmpty) {
-        await user!.updatePassword(_passwordTextController.text);
-      }
+      // Télécharger l'image vers Firebase Storage
+      await refStorage.putFile(imageFile);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Account information updated successfully.'),
-        ),
-      );
+      // Récupérer l'URL de téléchargement de l'image
+      String imageURL = await refStorage.getDownloadURL();
+      
+      return imageURL;
     } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Failed to update account information: $error'),
-        ),
-      );
+      print('Error uploading image to Firebase Storage: $error');
+      return null;
     }
   }
+
 
   @override
   void dispose() {

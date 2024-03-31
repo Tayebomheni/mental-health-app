@@ -56,7 +56,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   "Nom de l'utilisateur",
                   Icons.person_outline,
                   false,
-                  _emailTextController,
+                  _emailTextController, errorText: '',
                 ),
                 const SizedBox(
                   height: 20,
@@ -65,7 +65,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   "Mot de passe",
                   Icons.lock_outline,
                   true,
-                  _passwordTextController,
+                  _passwordTextController, errorText: '',
                 ),
                 const SizedBox(
                   height: 5,

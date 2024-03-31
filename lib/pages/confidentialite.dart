@@ -20,7 +20,7 @@ class confidentialite extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.0,
-                  color: Colors.red,
+                  color: Colors.purple,
                 ),
               ),
               
@@ -35,7 +35,7 @@ class confidentialite extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.0,
-                  color: Colors.red,
+                  color: Colors.purple,
                 ),
               ),
               SizedBox(height: 8.0),
@@ -49,7 +49,7 @@ class confidentialite extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.0,
-                  color: Colors.red,
+                  color: Colors.purple,
                 ),
               ),
               
@@ -69,7 +69,7 @@ class confidentialite extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.0,
-                  color: Colors.red,
+                  color: Colors.purple,
                 ),
               ),
               
@@ -85,7 +85,7 @@ class confidentialite extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.0,
-                  color: Colors.red,
+                  color: Colors.purple,
                 ),
               ),
               
@@ -101,7 +101,7 @@ class confidentialite extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.0,
-                  color: Colors.red,
+                  color: Colors.purple,
                 ),
               ),
               
@@ -117,7 +117,7 @@ class confidentialite extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.0,
-                  color: Colors.red,
+                  color: Colors.purple,
                 ),
               ),
               

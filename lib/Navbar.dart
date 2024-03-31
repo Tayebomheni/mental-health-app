@@ -4,14 +4,15 @@ import 'package:pcd/pages/Parametres.dart';
 import 'package:pcd/pages/Principal.dart';
 import 'package:pcd/pages/Therapie.dart';
 
-
 class navbar extends StatefulWidget {
+  const navbar({Key? key, required this.isDarkMode}) : super(key: key);
+  final bool isDarkMode;
   @override
   State<navbar> createState() => _navbarState();
 }
+
 class _navbarState extends State<navbar> {
   int _selectedIndex = 0;
-   bool isDarkMode = false;
 
   static const List<Widget> _widgetOptions = <Widget>[
     Principal(),
@@ -54,7 +55,7 @@ class _navbarState extends State<navbar> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue[800],
-         unselectedItemColor: isDarkMode ? Colors.white : Colors.black,
+        unselectedItemColor: widget.isDarkMode ? Colors.white : Colors.black,
         backgroundColor: Theme.of(context).colorScheme.primary,
         onTap: _onItemTapped,
       ),
