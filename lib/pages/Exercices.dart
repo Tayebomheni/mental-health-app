@@ -17,7 +17,7 @@ class _ExercicesState extends State<Exercices> {
           await FirebaseAuth.instance.signOut();
           Navigator.of(context).pushReplacementNamed('signin');
         },
-        child: Text('Sign Out'),
+        child: Text('page tayeb'),
       ),
     );
   }
