@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:pcd/resultat.dart';
-
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 
 class RateAppScreen extends StatelessWidget {
