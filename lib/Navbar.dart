@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pcd/pages/Exercices.dart';
+import 'package:pcd/pages/MyHomePage.dart';
 import 'package:pcd/pages/Parametres.dart';
 import 'package:pcd/pages/Principal.dart';
 import 'package:pcd/pages/Therapie.dart';
@@ -14,7 +14,7 @@ class navbar extends StatefulWidget {
 class _navbarState extends State<navbar> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static  List<Widget> _widgetOptions = <Widget>[
     Principal(),
     Therapie(),
     MyHomePage(),

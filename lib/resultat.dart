@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pcd/pages/Exercices.dart';
+import 'package:pcd/pages/MyHomePage.dart';
 
 
 
