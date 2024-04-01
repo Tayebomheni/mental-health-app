@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'information.dart';
+ import 'package:pcd/pages/Principal.dart';
 
 
 
@@ -17,7 +18,7 @@ class Apprentissage extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            //Navigator.push(context, MaterialPageRoute(builder: (context) => home()),);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Principal()),);
             // Action à effectuer lors de l'appui sur la flèche de retour
             
           },
