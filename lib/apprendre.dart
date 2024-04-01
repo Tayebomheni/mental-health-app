@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
+import 'question.dart';
 import 'information.dart';
 
-void main() {
-  runApp(Apprendre());
-}
 
-class Apprendre extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Apprentissage(),
-    );
-  }
-}
 
 class Apprentissage extends StatelessWidget {
   @override

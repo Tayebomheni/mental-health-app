@@ -17,7 +17,7 @@ class _navbarState extends State<navbar> {
   static const List<Widget> _widgetOptions = <Widget>[
     Principal(),
     Therapie(),
-    Exercices(),
+    MyHomePage(),
     Parametres(),
   ];
 

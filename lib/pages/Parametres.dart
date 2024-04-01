@@ -11,6 +11,7 @@ import 'package:pcd/pages/Edit_screen.dart';
 import 'package:pcd/pages/confidentialite.dart';
 import 'package:pcd/theme/themeprovider.dart';
 import 'package:provider/provider.dart';
+import 'package:pcd/rate.dart';
 
 
 
@@ -214,7 +215,7 @@ class _AccountScreenState extends State<Parametres> {
                           icon: Ionicons.star,
                           bgColor: Colors.transparent,
                           iconColor: Colors.amber,
-                          onTap: () {},
+                          onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen()),);},
                         ),
                         const SizedBox(height: 8),
                         SettingItem(

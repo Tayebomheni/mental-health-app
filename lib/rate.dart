@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 // ignore: depend_on_referenced_packages
-import 'package:ttoui/resultat.dart';
+import 'package:pcd/resultat.dart';
 
-void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: RateAppScreen(),
-    );
-  }
-}
 
 class RateAppScreen extends StatelessWidget {
   @override
