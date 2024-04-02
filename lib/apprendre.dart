@@ -39,7 +39,7 @@ class Apprentissage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
               Image.asset(
-            'assets/22bg.png', // Remplacez par votre URL d'image
+            'assets/icons/22bg.png', // Remplacez par votre URL d'image
            width: 300,
            height: 380,
             

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pcd/apprendre.dart';
 import 'package:pcd/pages/MyHomePage.dart';
+import 'package:pcd/therapies/chatbott.dart';
 
 class Principal extends StatefulWidget {
   const Principal({Key? key});
@@ -116,7 +117,7 @@ class _PrincipalState extends State<Principal> {
         child: GestureDetector(
       onTap: () {
         // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
-        print("La deuxième carte a été cliquée !");
+         Navigator.push(context, MaterialPageRoute(builder: (context) => BOT()));
         // Vous pouvez ajouter d'autres logiques ou navigations ici
       },
       child: Row(
