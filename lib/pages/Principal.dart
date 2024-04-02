@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pcd/apprendre.dart';
+import 'package:pcd/pages/MyHomePage.dart';
 
 class Principal extends StatefulWidget {
   const Principal({Key? key});
@@ -44,6 +46,10 @@ class _PrincipalState extends State<Principal> {
         margin: EdgeInsets.all(10.0),
         child: GestureDetector(
       onTap: () {
+        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Apprentissage()),
+                      );
         // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
         print("La carte a été cliquée !");
         // Vous pouvez ajouter d'autres logiques ou navigations ici
@@ -166,7 +172,10 @@ class _PrincipalState extends State<Principal> {
   color: Theme.of(context).colorScheme.primary,
   margin: EdgeInsets.all(10.0),
   child: GestureDetector(
-    onTap: () {
+    onTap: () {Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyHomePage()),
+                      );
       // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
       print("La troisième carte a été cliquée !");
       // Vous pouvez ajouter d'autres logiques ou navigations ici
