@@ -172,10 +172,7 @@ class _PrincipalState extends State<Principal> {
   color: Theme.of(context).colorScheme.primary,
   margin: EdgeInsets.all(10.0),
   child: GestureDetector(
-    onTap: () {Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MyHomePage()),
-                      );
+    onTap: () {;
       // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
      Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));
       // Vous pouvez ajouter d'autres logiques ou navigations ici
