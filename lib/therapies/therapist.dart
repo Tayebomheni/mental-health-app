@@ -56,7 +56,7 @@ class _TherapisteState extends State<Therapiste> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image(
-                image: AssetImage('assets/parler.png'),
+                image: AssetImage('assets/icons/parler.png'),
                 alignment: Alignment.centerRight,
               ),
               SizedBox(

@@ -53,7 +53,7 @@ class _HomeState extends State<Therapie> {
                   ),
                   Spacer(),
                   Image(
-                    image: AssetImage('assets/chatbot.png'),
+                    image: AssetImage('assets/icons/chatbot.png'),
                     alignment: Alignment.centerRight,
                   ),
                   SizedBox(
@@ -122,7 +122,7 @@ class _HomeState extends State<Therapie> {
                           height: 50,
                         ),
                         Image(
-                          image: AssetImage('assets/therapy.png'),
+                          image: AssetImage('assets/icons/therapy.png'),
                           alignment: Alignment.centerRight,
                         ),
                       ]),
@@ -162,7 +162,7 @@ class _HomeState extends State<Therapie> {
                           height: 40,
                         ),
                         Image(
-                          image: AssetImage('assets/Yoga.png'),
+                          image: AssetImage('assets/icons/Yoga.png'),
                           alignment: Alignment.centerRight,
                         ),
                       ]),
@@ -202,7 +202,7 @@ class _HomeState extends State<Therapie> {
                           height: 50,
                         ),
                         Image(
-                          image: AssetImage('assets/healthy.png'),
+                          image: AssetImage('assets/icons/healthy.png'),
                           alignment: Alignment.centerRight,
                         ),
                       ]),
@@ -242,7 +242,7 @@ class _HomeState extends State<Therapie> {
                           height: 40,
                         ),
                         Image(
-                          image: AssetImage('assets/sommeil.png'),
+                          image: AssetImage('assets/icons/sommeil.png'),
                           alignment: Alignment.centerRight,
                         ),
                       ]),

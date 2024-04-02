@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Stack(
           children: [
             //Image.asset(
-            //  'assets/oo.png', // Remplacez par votre URL d'image
+            //  'assets/icons/oo.png', // Remplacez par votre URL d'image
             //  width: double.infinity,
             //  height: double.infinity,
             //  fit: BoxFit.cover,
@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
                     },
                     text: 'Test de dépression',
-                    image: 'assets/depression.png',
+                    image: 'assets/icons/depression.png',
                   ),
                   SizedBox(height: 20.0), // Espacement entre les rectangles
                   RectangleButton(
@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       print('Rectangle 2 cliqué');
                     },
                     text: 'Test de peur       ',
-                    image: 'assets/peur.png',
+                    image: 'assets/icons/peur.png',
                   ),
                   SizedBox(height: 20.0), // Espacement entre les rectangles
                   RectangleButton(
@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       print('Rectangle 2 cliqué');
                     },
                     text: 'Test de trouble',
-                    image: 'assets/trouble.png',
+                    image: 'assets/icons/trouble.png',
                   ),
                   SizedBox(height: 20.0), // Espacement entre les rectangles
                   RectangleButton(
@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       print('Rectangle 2 cliqué');
                     },
                     text: 'Test de irritabilité',
-                    image: 'assets/irritabilite.png',
+                    image: 'assets/icons/irritabilite.png',
                   ),
                   SizedBox(height: 40.0),
                 ],

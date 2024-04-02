@@ -51,7 +51,7 @@ class exercice extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Image(image: AssetImage('assets/meditation.gif')),
+              Image(image: AssetImage('assets/icons/meditation.gif')),
               SizedBox(
                 height: 20,
               ),
@@ -96,7 +96,7 @@ class exercice extends StatelessWidget {
               ),
               Text(
                   "Le yoga est une pratique millénaire originaire d’Inde qui vise à apporter un équilibre entre le corps, le mental et le spirituel. Il s’agit à la fois d’une philosophie et d’une discipline comportant diverses techniques pour parvenir à cet objectif. Voyons plus en détail ce qu’est le yoga et les différents aspects de cette pratique. Le mot « yoga » vient du sanskrit et signifie « lier », « attacher », « mettre sous un joug ». Il désigne l’union du corps, de l’esprit et de l’âme. Le yoga est donc une discipline qui permet de lier le corps et l’esprit pour atteindre un état d’harmonie."),
-              Image(image: AssetImage("assets/yoga3.png")),
+              Image(image: AssetImage("assets/icons/yoga3.png")),
               SizedBox(
                 height: 20,
               ),
@@ -137,7 +137,7 @@ class exercice extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Image(image: AssetImage("assets/yoga2.png")),
+              Image(image: AssetImage("assets/icons/yoga2.png")),
               SizedBox(
                 height: 20,
               ),
@@ -222,7 +222,7 @@ class exercice extends StatelessWidget {
               boldText("•",
                   "  Pratiquer de façon régulière pour en retirer tous les bienfaits."),
 
-              Image(image: AssetImage("assets/yoga1.png")),
+              Image(image: AssetImage("assets/icons/yoga1.png")),
             ]),
           ),
         ));
