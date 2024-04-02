@@ -131,7 +131,7 @@ class RectangleButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.0), 
             // Ajustez le rayon des coins selon vos besoins
             child: Image.asset(
-                  'assets/pp.jfif',
+                  'assets/icons/pp.jfif',
                   width: 150.0, // ajustez la largeur de l'image selon vos besoins
                   height: 100.0, // ajustez la hauteur de l'image selon vos besoins
                   fit: BoxFit.cover,

@@ -51,7 +51,7 @@ class _PrincipalState extends State<Principal> {
                         MaterialPageRoute(builder: (context) => Apprentissage()),
                       );
         // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
-        print("La carte a été cliquée !");
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Apprentissage()));
         // Vous pouvez ajouter d'autres logiques ou navigations ici
       },
       child: Container(
@@ -177,7 +177,7 @@ class _PrincipalState extends State<Principal> {
                         MaterialPageRoute(builder: (context) => MyHomePage()),
                       );
       // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
-      print("La troisième carte a été cliquée !");
+     Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));
       // Vous pouvez ajouter d'autres logiques ou navigations ici
     },
     child: Row(
