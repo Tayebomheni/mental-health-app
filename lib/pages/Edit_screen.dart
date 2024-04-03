@@ -298,8 +298,13 @@ class _EditProfilePageState extends State<EditAccountScreen> {
                   );
                 }
               },
-              child: Text('Confirm'),
-            ),
+              child: Text('Confirmer',
+              style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,),
+              ),),
+            
             
             
             
@@ -308,8 +313,13 @@ class _EditProfilePageState extends State<EditAccountScreen> {
               onPressed: () {
                 Navigator.pop(context); // Fermer la boîte de dialogue
               },
-              child: Text('Cancel'),
-            ),
+              child: Text('Annuler',
+              style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,),
+              ),),
+            
           ],
         );
       },
