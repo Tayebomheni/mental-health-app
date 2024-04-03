@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'information.dart';
- import 'package:pcd/pages/Principal.dart';
+import 'package:pcd/pages/Principal.dart';
 
 
 
