@@ -55,7 +55,10 @@ class _navbarState extends State<navbar> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue[800],
-        unselectedItemColor: widget.isDarkMode ? Colors.white : Colors.black,
+        unselectedItemColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Colors.white
+              : Colors.black,
         backgroundColor: Theme.of(context).colorScheme.primary,
         onTap: _onItemTapped,
       ),

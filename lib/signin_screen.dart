@@ -1,4 +1,4 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pcd/color_utils.dart';
@@ -91,33 +91,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           Navigator.of(context).pushReplacementNamed("navbar");
                           
                         } on FirebaseAuthException catch (e) {
-                          if (e.code == 'user-not-found') {
-                            print('No user found for that email.');
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.warning,
-                              headerAnimationLoop: false,
-                              animType: AnimType.bottomSlide,
-                              title: 'Error',
-                              desc: 'No user found for that email.',
-                              buttonsTextStyle:
-                                  const TextStyle(color: Colors.black),
-                              showCloseIcon: true,
-                            ).show();
-                          } else if (e.code == 'wrong-password') {
-                            print('Wrong password provided for that user.');
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.warning,
-                              headerAnimationLoop: false,
-                              animType: AnimType.bottomSlide,
-                              title: 'Error',
-                              desc: 'Wrong password provided for that user.',
-                              buttonsTextStyle:
-                                  const TextStyle(color: Colors.black),
-                              showCloseIcon: true,
-                            ).show();
-                          }
+                          _showErrorAlert(e);
+                         
                         } finally {
                           await Future.delayed(Duration(
                               seconds: 3)); // Ajout du délai de 3 secondes
@@ -154,6 +129,42 @@ class _SignInScreenState extends State<SignInScreen> {
       ],
     );
   }
+// Ajoutez cette méthode dans votre classe _SignInScreenState
+void _showErrorAlert(FirebaseAuthException e) {
+  String errorMessage = '';
+
+  switch (e.code) {
+    case 'user-not-found':
+      errorMessage = 'Aucun utilisateur trouvé pour cet email.';
+      break;
+    case 'wrong-password':
+      errorMessage = 'Mot de passe incorrect.';
+      break;
+    default:
+      errorMessage = 'Une erreur s\'est produite : ${e.message}';
+      break;
+  }
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Erreur"),
+        content: Text(errorMessage),
+        actions: <Widget>[
+          TextButton(
+            child: Text("OK",
+            style: TextStyle(color: Colors.black),),
+            onPressed: () {
+              Navigator.of(context).pop(); // Fermer l'alerte
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
   Widget forgetPassword(BuildContext context) {
     return Container(

@@ -75,7 +75,12 @@ class _AccountScreenState extends State<Parametres> {
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
-              child: Text('Annuler'),
+              child: Text('Annuler',
+              style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,),
+            ),
             ),
             TextButton(
               onPressed: () async {
@@ -94,8 +99,12 @@ class _AccountScreenState extends State<Parametres> {
                   });
                 }
               },
-              child: Text('Quitter'),
-            ),
+              child: Text('Quitter', 
+              style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,),
+            )),
           ],
         );
       },
