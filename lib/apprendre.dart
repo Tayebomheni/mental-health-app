@@ -18,19 +18,17 @@ class _ApprentissageState extends State<Apprentissage>{
       appBar: 
       
       AppBar(
-        toolbarHeight: 100,
-        backgroundColor: Theme.of(context).colorScheme.background,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Principal()),);
-            // Action à effectuer lors de l'appui sur la flèche de retour
-            
-          },
-          iconSize: 40,
-        ),
-        elevation: 0.0,
-      ),
+  title: GestureDetector(
+    onTap: () {
+      // Ajoutez l'action que vous souhaitez exécuter lors du clic sur le titre de l'AppBar
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Principal()),
+      );
+    },
+    child: Text("Commencer l'apprentissage"),
+  ),
+),
 
 
       body: SingleChildScrollView(

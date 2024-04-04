@@ -54,45 +54,52 @@ class _QuestionnaireState extends State<Questionnaire> {
 
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: PreferredSize(
-  preferredSize: Size.fromHeight(100.0),
-  child: AppBar(
-    toolbarHeight: 95,
-    automaticallyImplyLeading: false,
-    title: Text(
-      ' Test',
-      style: TextStyle(
-        color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
-        fontSize: 40.0,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    backgroundColor: Colors.transparent, // Définir la couleur de fond de l'AppBar sur transparent
-    elevation: 0.0, // Supprimer l'ombre de l'AppBar
-    flexibleSpace: Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        LinearPercentIndicator(
-          percent: ratio,
-          lineHeight: 10.0,
-          backgroundColor: Color.fromARGB(255, 217, 119, 244),
-          progressColor: const Color.fromARGB(255, 133, 30, 198),
-        ),
-      ],
-    ),
-    actions: [
-      IconButton(
-        icon: Icon(Icons.cancel),
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));
-          print('Annuler');
-        },
-        iconSize: 35,
-        color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
-      ),
-    ],
-  ),
-),
+        preferredSize: Size.fromHeight(100.0),
 
+        child: AppBar(
+          toolbarHeight: 95,
+          automaticallyImplyLeading: false,
+          title: Text(' Test',style: TextStyle(color:  Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,fontSize: 40.0, // Changer la taille de la police ici
+                 fontWeight: FontWeight.bold,),),
+          backgroundColor: Theme.of(context).colorScheme.background,
+          elevation: 0.0,
+          flexibleSpace: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [ LinearPercentIndicator(
+            
+            percent: ratio, // Ajustez la valeur de la progression ici (de 0.0 à 1.0)
+            lineHeight: 10.0, // Ajustez la hauteur de la ligne de progression
+            backgroundColor: Color.fromARGB(255, 217, 119, 244),
+            progressColor: const Color.fromARGB(255, 133, 30, 198),
+            
+          ),
+],
+          ),
+         
+        actions: [
+          IconButton(
+            icon: Icon(Icons.cancel),
+            onPressed: () {
+             
+              // Ajoutez ici le code que vous souhaitez exécuter lorsque l'icône est appuyée
+              print('Annuler');
+            },
+            iconSize: 35,
+            color:  Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+            
+          
+          ),
+         
+         
+        ],
+        
+        ),
+        
+      ),
       
     
      
@@ -100,7 +107,7 @@ class _QuestionnaireState extends State<Questionnaire> {
       
       
       
-       SingleChildScrollView(
+      SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
