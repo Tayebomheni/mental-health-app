@@ -52,7 +52,7 @@ class _PrincipalState extends State<Principal> {
                         MaterialPageRoute(builder: (context) => Apprentissage()),
                       );
         // Ajoutez l'action que vous souhaitez exécuter lors du clic sur la carte
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Apprentissage()));
+        
         // Vous pouvez ajouter d'autres logiques ou navigations ici
       },
       child: Container(

@@ -3,18 +3,23 @@ import 'information.dart';
 import 'package:pcd/pages/Principal.dart';
 
 
+class Apprentissage extends StatefulWidget {
+  const Apprentissage({super.key});
+  @override
+  _ApprentissageState createState() => _ApprentissageState();
+}
 
-class Apprentissage extends StatelessWidget {
+class _ApprentissageState extends State<Apprentissage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 53, 53, 54),
+      backgroundColor: Theme.of(context).colorScheme.background,
       
       appBar: 
       
       AppBar(
         toolbarHeight: 100,
-        backgroundColor: Color.fromARGB(255, 53, 53, 54),
+        backgroundColor: Theme.of(context).colorScheme.background,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -52,7 +57,9 @@ class Apprentissage extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 16.0),
                   child: Text(
               "Découvrez la puissance de la thérapie cognitivo-comportementale avec notre cours interactif sur les fondamentaux de la TCC !\nCe cours est destiné à tous ceux qui aspirent à se comprendre et à surmonter des problèmes psychologiques tels que le stress, l'anxiété et la dépression, grâce à des techniques et stratégies éprouvées par le temps.Apprenez à modifier les pensées négatives et les modèles de comportement afin de mener une vie plus heureuse et saine.",
-              style: TextStyle(color :Colors.white,fontSize: 18,),
+              style: TextStyle(color :Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,fontSize: 18,),
               textAlign: TextAlign.left,
               
             ),),
@@ -143,8 +150,11 @@ class RectangleButton extends StatelessWidget {
                 child: Text(
                   text,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
                     fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -167,7 +177,7 @@ class RectangleButton extends StatelessWidget {
             ),
       
         decoration: BoxDecoration(
-          color:  Color.fromARGB(255, 84, 82, 82),
+          color:  Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(13.0),
         ),
         

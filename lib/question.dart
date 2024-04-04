@@ -7,6 +7,8 @@ import 'rate.dart';
 
 
 class Questionnaire extends StatefulWidget {
+      const Questionnaire({super.key});
+
   @override
   _QuestionnaireState createState() => _QuestionnaireState();
 }
@@ -46,16 +48,18 @@ class _QuestionnaireState extends State<Questionnaire> {
     double ratio = calculateRatio(questionIndex);
     return Scaffold(
 
-      backgroundColor: Color.fromARGB(255, 53, 53, 54),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100.0),
 
         child: AppBar(
           toolbarHeight: 95,
           automaticallyImplyLeading: false,
-          title: Text(' Test',style: TextStyle(color: Colors.white,fontSize: 40.0, // Changer la taille de la police ici
+          title: Text(' Test',style: TextStyle(color:  Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,fontSize: 40.0, // Changer la taille de la police ici
                  fontWeight: FontWeight.bold,),),
-          backgroundColor: Color.fromARGB(255, 53, 53, 54),
+          backgroundColor: Theme.of(context).colorScheme.background,
           elevation: 0.0,
           flexibleSpace: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -79,7 +83,9 @@ class _QuestionnaireState extends State<Questionnaire> {
               print('Annuler');
             },
             iconSize: 35,
-            color: Colors.white,
+            color:  Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
             
           
           ),
@@ -108,7 +114,9 @@ class _QuestionnaireState extends State<Questionnaire> {
             
             Text(
               questions[questionIndex],
-              style: TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),
+              style: TextStyle(color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,fontSize: 30,fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 35),
             Column(
@@ -281,7 +289,9 @@ class _QuestionnaireState extends State<Questionnaire> {
             style: TextStyle(
               fontSize: 22,
               decoration: TextDecoration.underline,
-              color: Colors.white,
+              color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
             ),
             
           ),
@@ -327,8 +337,11 @@ class RectangleButton extends StatelessWidget {
                 child: Text(
                   texte,
                   style: TextStyle(
-                    color: Colors.white,
+                    color:  Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
                     fontSize: 16.0,
+                    fontWeight: FontWeight.bold
                   ),
                 ),
               ),
@@ -341,7 +354,7 @@ class RectangleButton extends StatelessWidget {
             ),
       
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 84, 82, 82),
+          color:  Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(12.0),
         ),
         

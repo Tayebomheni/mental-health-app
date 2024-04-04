@@ -3,6 +3,7 @@ import 'package:pcd/question.dart';
  import 'package:pcd/pages/Principal.dart';
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -11,10 +12,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 53, 53, 54),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         toolbarHeight: 100,
-        backgroundColor: Color.fromARGB(255, 53, 53, 54),
+        backgroundColor: Theme.of(context).colorScheme.background,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -45,7 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   Text(
                     'Passer le test pour évaluer votre situation',
                     style: TextStyle(
-                        color: Colors.white,
+                        color:  Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -56,7 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text(
                       '  Tous les tests',
                       style: TextStyle(
-                          color: Colors.white,
+                          color:  Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
                           fontSize: 30,
                           fontWeight: FontWeight.bold),
                       textAlign: TextAlign.left,
@@ -151,8 +156,11 @@ class RectangleButton extends StatelessWidget {
                 child: Text(
                   text,
                   style: TextStyle(
-                    color: Colors.white,
+                    color:  Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
                     fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -172,7 +180,7 @@ class RectangleButton extends StatelessWidget {
           ],
         ),
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 84, 82, 82),
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(13.0),
         ),
       ),
