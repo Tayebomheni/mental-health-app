@@ -103,203 +103,205 @@ class _QuestionnaireState extends State<Questionnaire> {
       
       
       
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          
-          
-          
-          children: [
+      SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             
-            Text(
-              questions[questionIndex],
-              style: TextStyle(color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,fontSize: 30,fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 35),
-            Column(
-              children:[
-
-                RectangleButton(
-            onPressed: () {
-                finish =1 ;
-               setState(() {
-                  if (questionIndex < questions.length-1) {
-                    // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                    // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
-                    
-                    questionIndex++;
-                  }
-
-                  else { Future.delayed(Duration(seconds: 1), () {
-                  
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen()),);
-                    // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                    // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc
-            });
-                  }
-              // Utiliser Navigator.push pour naviguer vers la deuxième page                  
-                // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
-                print('Rectangle 3 cliqué');
-                // Naviguer vers une autre page, par exemple :
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
-           
-          });
             
-                  
-              },
+            
+            children: [
               
-              texte: reponses[0],
-            ),
-            SizedBox(height: 20),
-            RectangleButton(
-           onPressed: () {
-                finish =1 ;
-               setState(() {
-                  if (questionIndex < questions.length-1) {
-                    // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                    // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
+              Text(
+                questions[questionIndex],
+                style: TextStyle(color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,fontSize: 30,fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 35),
+              Column(
+                children:[
+        
+                  RectangleButton(
+              onPressed: () {
+                  finish =1 ;
+                 setState(() {
+                    if (questionIndex < questions.length-1) {
+                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
+                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
+                      
+                      questionIndex++;
+                    }
+        
+                    else { Future.delayed(Duration(seconds: 1), () {
                     
-                    questionIndex++;
-                  }
-
-                  else { Future.delayed(Duration(seconds: 1), () {
-                  
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen()),);
-                    // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                    // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen()),);
+                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
+                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc
+              });
+                    }
+                // Utiliser Navigator.push pour naviguer vers la deuxième page                  
+                  // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
+                  print('Rectangle 3 cliqué');
+                  // Naviguer vers une autre page, par exemple :
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
+             
             });
-                  }
-              // Utiliser Navigator.push pour naviguer vers la deuxième page                  
-                // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
-                print('Rectangle 3 cliqué');
-                // Naviguer vers une autre page, par exemple :
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
-           
-          });
-            
-                  
-              },
               
-              texte: reponses[1],
-            ),
-            SizedBox(height: 20),
-            RectangleButton(
+                    
+                },
+                
+                texte: reponses[0],
+              ),
+              SizedBox(height: 20),
+              RectangleButton(
              onPressed: () {
-                finish =1 ;
-               setState(() {
-                  if (questionIndex < questions.length-1) {
-                    // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                    // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
+                  finish =1 ;
+                 setState(() {
+                    if (questionIndex < questions.length-1) {
+                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
+                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
+                      
+                      questionIndex++;
+                    }
+        
+                    else { Future.delayed(Duration(seconds: 1), () {
                     
-                    questionIndex++;
-                  }
-
-                  else { Future.delayed(Duration(seconds: 1), () {
-                  
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen()),);
-                    // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                    // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen()),);
+                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
+                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc
+              });
+                    }
+                // Utiliser Navigator.push pour naviguer vers la deuxième page                  
+                  // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
+                  print('Rectangle 3 cliqué');
+                  // Naviguer vers une autre page, par exemple :
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
+             
             });
-                  }
-              // Utiliser Navigator.push pour naviguer vers la deuxième page                  
-                // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
-                print('Rectangle 3 cliqué');
-                // Naviguer vers une autre page, par exemple :
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
-           
-          });
-            
-                  
-              },
               
-              texte: reponses[2],
-              
-            ),
-             SizedBox(height: 20),
-            RectangleButton(
-             onPressed: () {
-                finish =1 ;
-               setState(() {
-                  if (questionIndex < questions.length-1) {
-                    // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                    // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
                     
-                    questionIndex++;
-                  }
-
-                  else { Future.delayed(Duration(seconds: 1), () {
-                  
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen()),);
-                    // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                    // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc
+                },
+                
+                texte: reponses[1],
+              ),
+              SizedBox(height: 20),
+              RectangleButton(
+               onPressed: () {
+                  finish =1 ;
+                 setState(() {
+                    if (questionIndex < questions.length-1) {
+                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
+                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
+                      
+                      questionIndex++;
+                    }
+        
+                    else { Future.delayed(Duration(seconds: 1), () {
+                    
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen()),);
+                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
+                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc
+              });
+                    }
+                // Utiliser Navigator.push pour naviguer vers la deuxième page                  
+                  // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
+                  print('Rectangle 3 cliqué');
+                  // Naviguer vers une autre page, par exemple :
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
+             
             });
-                  }
-              // Utiliser Navigator.push pour naviguer vers la deuxième page                  
-                // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
-                print('Rectangle 3 cliqué');
-                // Naviguer vers une autre page, par exemple :
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
-           
-          });
-            
-                  
-              },
               
-              texte: reponses[3],
-            ),
-            
-               ],
-              
-              
-            ),
-            SizedBox(height:10),
-            
-            GestureDetector(
-              
-          onTap: () {
-             setState(() {
-                   
-                  if (questionIndex <= 0) {
-                    // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                    // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
-                    questionIndex = 0;
-                     Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()),);
                     
-                  }
-                  if (questionIndex >= 1) {
-                    // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                    // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
-                   questionIndex--;
+                },
+                
+                texte: reponses[2],
+                
+              ),
+               SizedBox(height: 20),
+              RectangleButton(
+               onPressed: () {
+                  finish =1 ;
+                 setState(() {
+                    if (questionIndex < questions.length-1) {
+                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
+                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
+                      
+                      questionIndex++;
+                    }
+        
+                    else { Future.delayed(Duration(seconds: 1), () {
                     
-                  }
-           
-          });
-            // Action à effectuer lors du clic
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen()),);
+                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
+                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc
+              });
+                    }
+                // Utiliser Navigator.push pour naviguer vers la deuxième page                  
+                  // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
+                  print('Rectangle 3 cliqué');
+                  // Naviguer vers une autre page, par exemple :
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
+             
+            });
+              
+                    
+                },
+                
+                texte: reponses[3],
+              ),
+              
+                 ],
+                
+                
+              ),
+              SizedBox(height:10),
+              
+              GestureDetector(
+                
+            onTap: () {
+               setState(() {
+                     
+                    if (questionIndex <= 0) {
+                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
+                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
+                      questionIndex = 0;
+                       Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()),);
+                      
+                    }
+                    if (questionIndex >= 1) {
+                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
+                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
+                     questionIndex--;
+                      
+                    }
+             
+            });
+              // Action à effectuer lors du clic
+              
+            },
             
-          },
-          
-          child: 
-          Align(
-            alignment: Alignment.topLeft,
-            child :Text(
-            '< Retour',
-            style: TextStyle(
-              fontSize: 22,
-              decoration: TextDecoration.underline,
-              color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
+            child: 
+            Align(
+              alignment: Alignment.topLeft,
+              child :Text(
+              '< Retour',
+              style: TextStyle(
+                fontSize: 22,
+                decoration: TextDecoration.underline,
+                color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+              ),
+              
             ),
-            
+            ),
           ),
+              
+             
+            ],
           ),
-        ),
-            
-           
-          ],
         ),
       ),
     );
