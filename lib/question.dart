@@ -78,7 +78,7 @@ class _QuestionnaireState extends State<Questionnaire> {
           IconButton(
             icon: Icon(Icons.cancel),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()),);
+             
               // Ajoutez ici le code que vous souhaitez exécuter lorsque l'icône est appuyée
               print('Annuler');
             },
