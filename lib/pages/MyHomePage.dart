@@ -9,6 +9,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<String> liste1 = ["élément 1", "élément 2"];
+  List<String> liste2 = ['1', '2', '3'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Questionnaire()),
+                        MaterialPageRoute(builder: (context) => Questionnaire(),settings: RouteSettings( arguments: {'liste1': liste1, 'liste2': liste2},)),
                       );
                       // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
                       print('Rectangle 1 cliqué');
@@ -87,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Questionnaire()),
+                       MaterialPageRoute(builder: (context) => Questionnaire(),settings: RouteSettings( arguments: {'liste1': liste1, 'liste2': liste2},)),
                       );
                       // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
                       print('Rectangle 2 cliqué');
@@ -100,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Questionnaire()),
+                         MaterialPageRoute(builder: (context) => Questionnaire(),settings: RouteSettings( arguments: {'liste1': liste1, 'liste2': liste2},)),
                       );
                       // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
                       print('Rectangle 2 cliqué');
@@ -113,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Questionnaire()),
+                        MaterialPageRoute(builder: (context) => Questionnaire(),settings: RouteSettings( arguments: {'liste1': liste1, 'liste2': liste2},)),
                       );
                       // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
                       print('Rectangle 2 cliqué');

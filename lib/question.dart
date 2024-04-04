@@ -27,6 +27,7 @@ class _QuestionnaireState extends State<Questionnaire> {
     'Peut-être',
     'autre',
   ];
+  List<String> reponsesutilisateur=[];
 
   int questionIndex = 0;
   int finish = 0 ;
@@ -45,6 +46,9 @@ class _QuestionnaireState extends State<Questionnaire> {
 
   @override
   Widget build(BuildContext context) {
+     final Map<String, dynamic> donnees = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+     final List <String> question= donnees['liste1'];
+     final List <String> reponse= donnees['liste2'];
     double ratio = calculateRatio(questionIndex);
     return Scaffold(
 
@@ -118,6 +122,8 @@ class _QuestionnaireState extends State<Questionnaire> {
         
                   RectangleButton(
               onPressed: () {
+                  reponsesutilisateur.add(reponses[0]);
+                  
                   finish =1 ;
                  setState(() {
                     if (questionIndex < questions.length-1) {
@@ -150,7 +156,9 @@ class _QuestionnaireState extends State<Questionnaire> {
               SizedBox(height: 20),
               RectangleButton(
              onPressed: () {
-                  finish =1 ;
+                reponsesutilisateur.add(reponses[1]);
+
+                finish =1 ;
                  setState(() {
                     if (questionIndex < questions.length-1) {
                       // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
@@ -182,6 +190,7 @@ class _QuestionnaireState extends State<Questionnaire> {
               SizedBox(height: 20),
               RectangleButton(
                onPressed: () {
+                  reponsesutilisateur.add(reponses[2]);
                   finish =1 ;
                  setState(() {
                     if (questionIndex < questions.length-1) {
@@ -215,6 +224,7 @@ class _QuestionnaireState extends State<Questionnaire> {
                SizedBox(height: 20),
               RectangleButton(
                onPressed: () {
+                  reponsesutilisateur.add(reponses[3]);
                   finish =1 ;
                  setState(() {
                     if (questionIndex < questions.length-1) {
