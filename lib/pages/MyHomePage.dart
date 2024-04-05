@@ -10,8 +10,30 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> liste1 = ["élément 1", "élément 2"];
-  List<String> liste2 = ['1', '2', '3'];
+  List<String> questtionsdepression = List.filled(18, "Choisissez une option");
+  
+  List<List<String>> reponsesdepression = [["Rien ne me rend triste","Je ressens de la tristesse plus souvent que d'habitude", "Je suis triste tout le temps et je ne peux pas l'arrêter" ,"Je suis tellement triste et misérable que je ne peux pas résister à ces sentiments" ],["Je n'ai pas peur de l'avenir","J'ai peur de l'avenir","Je n'entrevois rien de bon dans l'avenir","Je sais que l'avenir est effrayant et que rien ne peut être changé"],
+
+
+["L'échec ne m'arrive pas plus qu'à n'importe qui d'autre","J'ai l'impression d'échouer plus souvent que les autres","Quand je regarde le passé, je vois beaucoup d'échecs","J'ai l'impression d'être un vrai loser"],["J'apprécie les choses comme je le faisais auparavant","Je n'apprécie plus les choses ordinaires autant qu'avant","Je n'aime rienJe m'ennuie", "je ne suis excité par rien"],
+["Je n'ai aucune culpabilité","Je me sens coupable la plupart du temps","Je me sens complètement coupable la plupart du temps.","Je me sens toujours coupable"],
+["Je n'ai pas l'impression d'être jugée","J'ai l'impression que les gens pourraient me juger","Je m'attends à être jugé","J'ai l'impression que tout le monde autour de moi me juge."],
+["Je ne suis pas déçu par moi-même","Je suis déçu par moi-même","Je suis dégoûté de moi-même","Je me déteste"],
+["Je n'ai pas l'impression d'être pire que les autres.","Je me critique pour mes lacunes et mes erreurs","Je me critique constamment pour mes échecs", "Je me reproche tout ce qui se passe."],
+["Je n'ai pas de pensées suicidaires","J'ai déjà pensé au suicide, mais je ne le ferais jamais.","J'aimerais me suicider","Je me tuerais si je prenais le risque."],
+["Je ne m'inquiète pas plus que d'habitude","Je suis plus inquiet que d'habitude en ce moment","Je m'inquiète tout le temps.","L'anxiété me submerge et je ne peux pas y faire face."],
+["Je ne suis pas plus irrité que d'habitude","Je suis un peu plus agacé que d'habitude.","Je peux tout à fait être agacé et irrité pendant un certain temps.","Je me sens tout le temps irrité"],
+["Je n'ai pas perdu l'intérêt pour les gens","Je m'intéresse moins aux gens que d'habitude.","J'ai perdu la plupart de mon intérêt pour les gens.","Je ne m'intéresse plus du tout aux gens"],
+["Je prends des décisions aussi clairement que je l'ai toujours fait.","J'ai reporté ma décision plus longtemps que d'habitude","J'ai plus de difficultés à prendre des décisions maintenant qu'avant.","Je suis totalement incapable de prendre des décisions"],
+["Je ne pense pas avoir l'air plus mal en point que d'habitude.","Je crains d'avoir l'air un peu plus vieux ou de manquer d'attrait.","J'ai constamment l'impression que quelque chose est en train de changer en moi, me rendant de moins en moins attirante.","Je suis sûre que j'ai l'air horrible"],
+["Je travaille aussi bien que je l'ai jamais fait","Le travail exige un effort supplémentaire de ma part","Je dois me forcer à faire quelque chose","Je ne peux pas travailler"],
+["Je dors aussi bien que d'habitude.","Je dors un peu moins bien que d'habitude","Aujourd'hui, je me réveille 1 à 2 heures plus tôt et j'ai du mal à me rendormir.","Je me réveille quelques heures plus tôt que d'habitude et je n'arrive pas à me rendormir."],
+["Je ne suis pas plus fatiguée que je ne l'ai toujours été","Je me fatigue plus vite maintenant","Je me lasse de presque tous les emplois","Je me lasse de tout"],
+["Mon appétit est ce qu'il était","Mon appétit n'est plus aussi bon qu'avant","Mon appétit s'est considérablement affaibli","Rien n'attire mon appétit"],
+
+
+];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Questionnaire(),settings: RouteSettings( arguments: {'liste1': liste1, 'liste2': liste2},)),
+                        MaterialPageRoute(builder: (context) => Questionnaire(),settings: RouteSettings( arguments: {'liste1': questtionsdepression, 'liste2': reponsesdepression},)),
                       );
                       // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
                       print('Rectangle 1 cliqué');
@@ -91,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                       MaterialPageRoute(builder: (context) => Questionnaire(),settings: RouteSettings( arguments: {'liste1': liste1, 'liste2': liste2},)),
+                          MaterialPageRoute(builder: (context) => Questionnaire(),settings: RouteSettings( arguments: {'liste1': questtionsdepression, 'liste2': reponsesdepression},)),
                       );
                       // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
                       print('Rectangle 2 cliqué');
@@ -104,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                         MaterialPageRoute(builder: (context) => Questionnaire(),settings: RouteSettings( arguments: {'liste1': liste1, 'liste2': liste2},)),
+                            MaterialPageRoute(builder: (context) => Questionnaire(),settings: RouteSettings( arguments: {'liste1': questtionsdepression, 'liste2': reponsesdepression},)),
                       );
                       // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
                       print('Rectangle 2 cliqué');
@@ -117,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Questionnaire(),settings: RouteSettings( arguments: {'liste1': liste1, 'liste2': liste2},)),
+                          MaterialPageRoute(builder: (context) => Questionnaire(),settings: RouteSettings( arguments: {'liste1': questtionsdepression, 'liste2': reponsesdepression},)),
                       );
                       // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
                       print('Rectangle 2 cliqué');

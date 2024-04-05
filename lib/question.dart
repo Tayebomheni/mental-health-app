@@ -14,31 +14,14 @@ class Questionnaire extends StatefulWidget {
 }
 
 class _QuestionnaireState extends State<Questionnaire> {
-  List<String> questions = [
-    'Question 1: Flutter est-il génial?',
-    
-    'Question 2: Aimez-vous programmer en Dart?',
-    // Ajoutez autant de questions que nécessaire
-  ];
 
-  List<String> reponses = [
-    'Oui',
-    'Non',
-    'Peut-être',
-    'autre',
-  ];
   List<String> reponsesutilisateur=[];
 
   int questionIndex = 0;
   int finish = 0 ;
 
   
-  double calculateRatio(int currentIndex) {
-    int totalQuestions= questions.length;
-    
-
-    return (questionIndex + 1) / totalQuestions;
-  }
+  
   
   
 
@@ -47,8 +30,14 @@ class _QuestionnaireState extends State<Questionnaire> {
   @override
   Widget build(BuildContext context) {
      final Map<String, dynamic> donnees = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-     final List <String> question= donnees['liste1'];
-     final List <String> reponse= donnees['liste2'];
+     final List <String> questions= donnees['liste1'];
+     final List<List<String>> reponses= donnees['liste2'];
+     double calculateRatio(int currentIndex) {
+    int totalQuestions= questions.length;
+    
+
+    return (questionIndex + 1) / totalQuestions;
+  }
     double ratio = calculateRatio(questionIndex);
     return Scaffold(
 
@@ -129,7 +118,7 @@ class _QuestionnaireState extends State<Questionnaire> {
         
                   RectangleButton(
               onPressed: () {
-                  reponsesutilisateur.add(reponses[0]);
+                  reponsesutilisateur.add(reponses[questionIndex][0]);
                   
                   finish =1 ;
                  setState(() {
@@ -158,12 +147,12 @@ class _QuestionnaireState extends State<Questionnaire> {
                     
                 },
                 
-                texte: reponses[0],
+                texte: reponses[questionIndex][0],
               ),
               SizedBox(height: 20),
               RectangleButton(
              onPressed: () {
-                reponsesutilisateur.add(reponses[1]);
+                reponsesutilisateur.add(reponses[questionIndex][1]);
 
                 finish =1 ;
                  setState(() {
@@ -192,12 +181,12 @@ class _QuestionnaireState extends State<Questionnaire> {
                     
                 },
                 
-                texte: reponses[1],
+                texte: reponses[questionIndex][1],
               ),
               SizedBox(height: 20),
               RectangleButton(
                onPressed: () {
-                  reponsesutilisateur.add(reponses[2]);
+                  reponsesutilisateur.add(reponses[questionIndex][2]);
                   finish =1 ;
                  setState(() {
                     if (questionIndex < questions.length-1) {
@@ -225,13 +214,13 @@ class _QuestionnaireState extends State<Questionnaire> {
                     
                 },
                 
-                texte: reponses[2],
+                texte: reponses[questionIndex][2],
                 
               ),
                SizedBox(height: 20),
               RectangleButton(
                onPressed: () {
-                  reponsesutilisateur.add(reponses[3]);
+                  reponsesutilisateur.add(reponses[questionIndex][3]);
                   finish =1 ;
                  setState(() {
                     if (questionIndex < questions.length-1) {
@@ -259,14 +248,14 @@ class _QuestionnaireState extends State<Questionnaire> {
                     
                 },
                 
-                texte: reponses[3],
+                texte: reponses[questionIndex][3],
               ),
               
                  ],
                 
                 
               ),
-              SizedBox(height:10),
+              SizedBox(height:20),
               
               GestureDetector(
                 
@@ -293,12 +282,13 @@ class _QuestionnaireState extends State<Questionnaire> {
             },
             
             child: 
+            
             Align(
               alignment: Alignment.topLeft,
               child :Text(
               '< Retour',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 20,
                 decoration: TextDecoration.underline,
                 color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
@@ -342,6 +332,8 @@ class RectangleButton extends StatelessWidget {
           
               children: [
                 SizedBox(width: 5.0),
+                Flexible(
+                  child:
                 Align(
               alignment: Alignment.topLeft,
               child: Padding(
@@ -358,6 +350,7 @@ class RectangleButton extends StatelessWidget {
                 ),
               ),
             ),
+                ),
                 // Espacement entre l'image et le texte
                 
                 SizedBox(width: 35.0),
