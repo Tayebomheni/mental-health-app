@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pcd/pages/Principal.dart';
 import 'package:pcd/question.dart';
  
 
@@ -15,6 +16,22 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(
+        toolbarHeight: 100,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+             Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Principal()),
+                      );
+            // Action à effectuer lors de l'appui sur la flèche de retour
+          },
+          iconSize: 40,
+        ),
+        elevation: 0.0,
+      ),
       
       body: SingleChildScrollView(
         child: Stack(
