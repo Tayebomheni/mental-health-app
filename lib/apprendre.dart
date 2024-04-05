@@ -18,17 +18,19 @@ class _ApprentissageState extends State<Apprentissage>{
       appBar: 
       
       AppBar(
-  title: GestureDetector(
-    onTap: () {
-      // Ajoutez l'action que vous souhaitez exécuter lors du clic sur le titre de l'AppBar
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Principal()),
-      );
-    },
-    child: Text("Commencer l'apprentissage"),
-  ),
-),
+        toolbarHeight: 100,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Principal()),);
+            // Action à effectuer lors de l'appui sur la flèche de retour
+            
+          },
+          iconSize: 40,
+        ),
+        
+      ),
 
 
       body: SingleChildScrollView(
@@ -42,7 +44,7 @@ class _ApprentissageState extends State<Apprentissage>{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
               Image.asset(
-            'assets/icons/22bg.png', // Remplacez par votre URL d'image
+            'assets/icons/22bg.png',
            width: 300,
            height: 380,
             
@@ -124,61 +126,49 @@ class _ApprentissageState extends State<Apprentissage>{
 
 class RectangleButton extends StatelessWidget {
   final VoidCallback onPressed;
-  final String text ;
-  final String image ;
+  final String text;
+  final String image;
 
-  RectangleButton({required this.onPressed,required this.text,required this.image});
+  RectangleButton({required this.onPressed, required this.text, required this.image});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: 390.0,
-        height: 100.0,
-        
+        width: double.infinity, // Utilise la largeur totale disponible
+        height: 120.0, // Hauteur fixe pour éviter les dépassements
+        padding: EdgeInsets.all(10.0), // Ajoute du padding autour du contenu
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
+          borderRadius: BorderRadius.circular(13.0),
+        ),
         child: Row(
-          
-              children: [
-                SizedBox(width: 5.0),
-                Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: EdgeInsets.all(15.0), // Ajustez le padding du texte selon vos besoins
-                child: Text(
-                  text,
-                  style: TextStyle(
-                    color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+          children: [
+            SizedBox(width: 10.0), // Espacement à gauche
+            Expanded(
+              child: Text(
+                text,
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-                // Espacement entre l'image et le texte
-                
-                SizedBox(width: 35.0),
-                     ClipRRect(
-            borderRadius: BorderRadius.circular(22.0), 
-            // Ajustez le rayon des coins selon vos besoins
-            child: Image.asset(
-                  image,
-                  width: 140.0, // ajustez la largeur de l'image selon vos besoins
-                  height: 140.0, // ajustez la hauteur de l'image selon vos besoins
-                  
-                  
-                ),
-          ),
-              ],
+            SizedBox(width: 20.0), // Espacement entre le texte et l'image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(22.0),
+              child: Image.asset(
+                image,
+                width: 80.0, // Taille de l'image ajustée
+                height: 80.0, // Taille de l'image ajustée
+                fit: BoxFit.cover, // Ajuste l'image pour couvrir toute la zone
+              ),
             ),
-      
-        decoration: BoxDecoration(
-          color:  Theme.of(context).colorScheme.primary,
-          borderRadius: BorderRadius.circular(13.0),
+            SizedBox(width: 10.0), // Espacement à droite
+          ],
         ),
-        
       ),
     );
   }
