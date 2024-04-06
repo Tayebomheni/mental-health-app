@@ -347,7 +347,7 @@ class RectangleButton extends StatelessWidget {
                     ? Colors.white
                     : Colors.black,
                     fontSize: 16.0,
-                    fontWeight: FontWeight.bold
+                    
                   ),
                 ),
               ),
