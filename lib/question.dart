@@ -1,7 +1,12 @@
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
- import 'package:pcd/pages/MyHomePage.dart';
-
+import 'package:pcd/pages/MyHomePage.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:csv/csv.dart';
 import 'rate.dart';
 
 
@@ -15,7 +20,7 @@ class Questionnaire extends StatefulWidget {
 
 class _QuestionnaireState extends State<Questionnaire> {
 
-  List<String> reponsesutilisateur=[];
+  List<List<String>> reponsesutilisateur=[];
 
   int questionIndex = 0;
   int finish = 0 ;
@@ -26,6 +31,40 @@ class _QuestionnaireState extends State<Questionnaire> {
   
 
   List<bool> checkedAnswers = List.generate(3, (index) => false);
+
+
+  Future<void> uploadCSVFile(String filePath) async {
+  // Récupérer une référence au bucket Firebase Storage
+  firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+      .ref().child('folderName/fileName.csv');
+
+
+  // Charger le fichier
+  File file = File(filePath);
+
+  // Charger le fichier dans le bucket Firebase Storage
+  await ref.putFile(file);
+}
+
+ Future<void> writeCSV(List<List<String>> data) async {
+  // Récupérer le répertoire d'applications
+  final directory = await getApplicationDocumentsDirectory();
+  final filePath = '${directory.path}/responses.csv';
+
+  // Convertir les données en format CSV
+  String csv = const ListToCsvConverter().convert(data);
+
+  // Écrire dans le fichier
+  await File(filePath).writeAsString(csv);
+
+  // Charger le fichier CSV dans Firebase Storage
+  await uploadCSVFile(filePath);
+}
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +77,20 @@ class _QuestionnaireState extends State<Questionnaire> {
 
     return (questionIndex + 1) / totalQuestions;
   }
+  
+
+
+
+
+  
     double ratio = calculateRatio(questionIndex);
+    if (questionIndex >= questions.length - 1) {
+    // Imprimez la liste des réponses de l'utilisateur dans la console
+    print('Liste des réponses de l\'utilisateur : $reponsesutilisateur');
+    writeCSV(reponsesutilisateur);
+  }
+
+
     return Scaffold(
 
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -118,7 +170,7 @@ class _QuestionnaireState extends State<Questionnaire> {
         
                   RectangleButton(
               onPressed: () {
-                  reponsesutilisateur.add(reponses[questionIndex][0]);
+                  reponsesutilisateur.add([reponses[questionIndex][0]]);
                   
                   finish =1 ;
                  setState(() {
@@ -138,7 +190,7 @@ class _QuestionnaireState extends State<Questionnaire> {
                     }
                 // Utiliser Navigator.push pour naviguer vers la deuxième page                  
                   // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
-                  print('Rectangle 3 cliqué');
+                  print('Rectangle 0 cliqué');
                   // Naviguer vers une autre page, par exemple :
                   // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
              
@@ -152,7 +204,7 @@ class _QuestionnaireState extends State<Questionnaire> {
               SizedBox(height: 20),
               RectangleButton(
              onPressed: () {
-                reponsesutilisateur.add(reponses[questionIndex][1]);
+                reponsesutilisateur.add([reponses[questionIndex][1]]);
 
                 finish =1 ;
                  setState(() {
@@ -172,7 +224,7 @@ class _QuestionnaireState extends State<Questionnaire> {
                     }
                 // Utiliser Navigator.push pour naviguer vers la deuxième page                  
                   // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
-                  print('Rectangle 3 cliqué');
+                  print('Rectangle 1 cliqué');
                   // Naviguer vers une autre page, par exemple :
                   // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
              
@@ -186,7 +238,7 @@ class _QuestionnaireState extends State<Questionnaire> {
               SizedBox(height: 20),
               RectangleButton(
                onPressed: () {
-                  reponsesutilisateur.add(reponses[questionIndex][2]);
+                  reponsesutilisateur.add([reponses[questionIndex][2]]);
                   finish =1 ;
                  setState(() {
                     if (questionIndex < questions.length-1) {
@@ -205,7 +257,7 @@ class _QuestionnaireState extends State<Questionnaire> {
                     }
                 // Utiliser Navigator.push pour naviguer vers la deuxième page                  
                   // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
-                  print('Rectangle 3 cliqué');
+                  print('Rectangle 2 cliqué');
                   // Naviguer vers une autre page, par exemple :
                   // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
              
@@ -220,7 +272,7 @@ class _QuestionnaireState extends State<Questionnaire> {
                SizedBox(height: 20),
               RectangleButton(
                onPressed: () {
-                  reponsesutilisateur.add(reponses[questionIndex][3]);
+                  reponsesutilisateur.add([reponses[questionIndex][3]]);
                   finish =1 ;
                  setState(() {
                     if (questionIndex < questions.length-1) {
