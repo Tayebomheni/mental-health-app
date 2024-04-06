@@ -33,6 +33,27 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 ];
+List<String> questtionstrouble = ["Combien de fois avez-vous eu du mal à finaliser les derniers détails d'un projet alors que le plus dur était passé ?",
+"Combien de fois éprouvez-vous des difficultés à mettre de l'ordre dans vos affaires lorsque vous effectuez une tâche qui nécessite de l'organisation ?",
+"A quelle fréquence avez-vous des difficultés à vous souvenir de vos rendez-vous ou de vos engagements ?",
+"Lorsque vous avez une tâche qui demande beaucoup de réflexion, combien de fois évitez-vous ou reportez-vous le moment de commencer ?",
+"Combien de fois vous arrive-t-il de vous agiter ou de faire des mouvements inutiles avec vos bras et vos jambes lorsque vous devez rester assis pendant de longues périodes ?",
+"Combien de fois vous sentez-vous hyperactif et obligé de faire quelque chose, comme si vous aviez un moteur en marche à l'intérieur de vous ?",
+"Combien de fois faites-vous des erreurs d'inattention lorsque vous effectuez un travail ennuyeux ou difficile ?",
+"Combien de fois avez-vous eu du mal à maintenir votre attention lors d'un travail ennuyeux et monotone ?",
+"Combien de fois avez-vous du mal à vous concentrer sur ce que les gens vous disent, même s'ils s'adressent directement à vous ?",
+"Combien de fois perdez-vous ou avez-vous du mal à trouver des objets à la maison ou au travail ?",
+"Combien de fois êtes-vous distrait par des événements ou des bruits autour de vous ?",
+"Combien de fois quittez-vous votre siège lors de réunions ou d'autres situations où vous devez rester assis au même endroit pendant de longues périodes ?",
+"A quelle fréquence vous sentez-vous anxieux ou agité ?",
+"Avez-vous souvent du mal à vous détendre et à vous relaxer lorsque vous avez du temps libre ?",
+"Combien de fois vous surprenez-vous à parler de manière excessive lorsque vous êtes en public ?",
+"Combien de fois, au cours d'une conversation, vous surprenez-vous à finir les phrases des gens avant qu'ils ne puissent terminer les leurs ?",
+"Combien de fois trouvez-vous difficile d'attendre votre tour ?",
+"Combien de fois interrompez-vous les autres lorsqu'ils sont occupés ?",
+];
+List<List<String>> reponsestrouble = List.filled(18, ["Jamais","Rarement","Parfois","Souvent","Toujours"]);
+
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                            MaterialPageRoute(builder: (context) => Questionnaire(),settings: RouteSettings( arguments: {'liste1': questtionsdepression, 'liste2': reponsesdepression},)),
+                            MaterialPageRoute(builder: (context) => Questionnaire(),settings: RouteSettings( arguments: {'liste1': questtionstrouble, 'liste2': reponsestrouble},)),
                       );
                       // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
                       print('Rectangle 2 cliqué');
