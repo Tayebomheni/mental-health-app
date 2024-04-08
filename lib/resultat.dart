@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pcd/pages/MyHomePage.dart';
+import 'package:tflite_flutter/tflite_flutter.dart';
+import 'package:flutter/cupertino.dart';
 
 class resultat extends StatefulWidget {
   const resultat({super.key});
@@ -8,7 +10,23 @@ class resultat extends StatefulWidget {
 }
 
 class _resultatState extends State<resultat> {
-  @override
+  @override var predValue = "";
+  
+  void initState() {
+    super.initState();
+    predValue = "click predict button";
+  }
+
+  Future<void> predData(List<String> input) async {
+    final interpreter = await Interpreter.fromAsset('predmodel.tflite');
+    var output ;
+    interpreter.run(input, output);
+    print(output);
+
+    this.setState(() {
+      predValue = output[0].toString();
+    });
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
