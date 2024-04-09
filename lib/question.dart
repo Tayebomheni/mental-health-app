@@ -1,357 +1,192 @@
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_core/firebase_core.dart';
-
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-import 'package:pcd/pages/MyHomePage.dart';
-import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:csv/csv.dart';
+import 'dart:io';
+import 'package:pcd/pages/MyHomePage.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'rate.dart';
 
-
-
 class Questionnaire extends StatefulWidget {
-      const Questionnaire({super.key});
+  const Questionnaire({Key? key}) : super(key: key);
 
   @override
   _QuestionnaireState createState() => _QuestionnaireState();
 }
 
 class _QuestionnaireState extends State<Questionnaire> {
-
-  List<List<String>> reponsesutilisateur=[];
-
+  List<List<String>> reponsesutilisateur = [];
   int questionIndex = 0;
-  int finish = 0 ;
 
-  
-  
-  
-  
+  Future<void> writeCSV(List<List<String>> data) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final filePath = '${directory.path}/responses.csv';
 
-  List<bool> checkedAnswers = List.generate(3, (index) => false);
+    String csv = const ListToCsvConverter().convert(data);
 
+    await File(filePath).writeAsString(csv);
 
-  Future<void> uploadCSVFile(String filePath) async {
-  // Récupérer une référence au bucket Firebase Storage
-  firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-      .ref().child('folderName/fileName.csv');
+    print('Fichier CSV créé : $filePath');
+    // Upload the file to Firebase Storage
+  firebase_storage.Reference storageReference = firebase_storage.FirebaseStorage.instance
+      .ref('dossier/responses.csv');
+  await storageReference.putFile(File(filePath));
 
+  print('Fichier CSV téléversé vers Firebase Storage avec succès.');
+  }
 
-  // Charger le fichier
-  File file = File(filePath);
+  double calculateRatio(int currentIndex, int totalQuestions) {
+    return (currentIndex + 1) / totalQuestions;
+  }
 
-  // Charger le fichier dans le bucket Firebase Storage
-  await ref.putFile(file);
-}
-
- Future<void> writeCSV(List<List<String>> data) async {
-  // Récupérer le répertoire d'applications
-  final directory = await getApplicationDocumentsDirectory();
-  final filePath = '${directory.path}/responses.csv';
-
-  // Convertir les données en format CSV
-  String csv = const ListToCsvConverter().convert(data);
-
-  // Écrire dans le fichier
-  await File(filePath).writeAsString(csv);
-
-  // Charger le fichier CSV dans Firebase Storage
-  await uploadCSVFile(filePath);
-}
-
-
-
-
-
+  void recordUserResponse(String response, int totalQuestions) {
+    reponsesutilisateur.add([response]);
+    setState(() {
+      if (questionIndex < totalQuestions - 1) {
+        questionIndex++;
+      } else {
+        Future.delayed(Duration(seconds: 1), () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => RateAppScreen()),
+          );
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-     final Map<String, dynamic> donnees = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-     final List <String> questions= donnees['liste1'];
-     final List<List<String>> reponses= donnees['liste2'];
-     double calculateRatio(int currentIndex) {
-    int totalQuestions= questions.length;
+    final Map<String, dynamic> donnees =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final List<String> questions = donnees['liste1'];
+    final List<List<String>> reponses = donnees['liste2'];
+    final int totalQuestions = questions.length;
+    
+    
+    Future<void> predData(List<List<String>>reponsesutilisateur) async {
+    final interpreter = await Interpreter.fromAsset('predmodel.tflite');
+    var input = reponsesutilisateur;
+    var output = List.filled(1, 0).reshape([1, 1]);
+    interpreter.run(input, output);
+    
+    this.setState(() {
+      
+    });
+  }
+
+    double ratio = calculateRatio(questionIndex, totalQuestions);
+
+    if (questionIndex >= totalQuestions - 1) {
+      print('Liste des réponses de l\'utilisateur : $reponsesutilisateur');
+      writeCSV(reponsesutilisateur);
+      predData(reponsesutilisateur);
+    }
     
 
-    return (questionIndex + 1) / totalQuestions;
-  }
-  
-
-
-
-
-  
-    double ratio = calculateRatio(questionIndex);
-    if (questionIndex >= questions.length - 1) {
-    // Imprimez la liste des réponses de l'utilisateur dans la console
-    print('Liste des réponses de l\'utilisateur : $reponsesutilisateur');
-    writeCSV(reponsesutilisateur);
-  }
-
-
     return Scaffold(
-
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100.0),
-
         child: AppBar(
           toolbarHeight: 95,
           automaticallyImplyLeading: false,
-          title: Text(' Test',style: TextStyle(color:  Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,fontSize: 40.0, // Changer la taille de la police ici
-                 fontWeight: FontWeight.bold,),),
+          title: Text(
+            'Test',
+            style: TextStyle(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+              fontSize: 40.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           backgroundColor: Theme.of(context).colorScheme.background,
           elevation: 0.0,
           flexibleSpace: Column(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [ LinearPercentIndicator(
-            
-            percent: ratio, // Ajustez la valeur de la progression ici (de 0.0 à 1.0)
-            lineHeight: 10.0, // Ajustez la hauteur de la ligne de progression
-            backgroundColor: Color.fromARGB(255, 217, 119, 244),
-            progressColor: const Color.fromARGB(255, 133, 30, 198),
-            
+            children: [
+              LinearPercentIndicator(
+                percent: ratio,
+                lineHeight: 10.0,
+                backgroundColor: Color.fromARGB(255, 217, 119, 244),
+                progressColor: const Color.fromARGB(255, 133, 30, 198),
+              ),
+            ],
           ),
-],
-          ),
-         
-        actions: [
-          IconButton(
-            icon: Icon(Icons.cancel),
-            onPressed: () {
-             
-              // Ajoutez ici le code que vous souhaitez exécuter lorsque l'icône est appuyée
-              print('Annuler');
-            },
-            iconSize: 35,
-            color:  Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-            
-          
-          ),
-         
-         
-        ],
-        
+          actions: [
+            IconButton(
+              icon: Icon(Icons.cancel),
+              onPressed: () {
+                print('Annuler');
+              },
+              iconSize: 35,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+            ),
+          ],
         ),
-        
       ),
-      
-    
-     
-      body: 
-      
-      
-      
-      SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            
-            
-            
             children: [
-              
               Text(
                 questions[questionIndex],
-                style: TextStyle(color: Theme.of(context).brightness == Brightness.dark
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
-                      : Colors.black,fontSize: 30,fontWeight: FontWeight.bold),
+                      : Colors.black,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 35),
               Column(
-                children:[
-        
-                  RectangleButton(
-              onPressed: () {
-                  reponsesutilisateur.add([reponses[questionIndex][0]]);
-                  
-                  finish =1 ;
-                 setState(() {
-                    if (questionIndex < questions.length-1) {
-                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
-                      
-                      questionIndex++;
-                    }
-        
-                    else { Future.delayed(Duration(seconds: 1), () {
-                    
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen()),);
-                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc
-              });
-                    }
-                // Utiliser Navigator.push pour naviguer vers la deuxième page                  
-                  // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
-                  print('Rectangle 0 cliqué');
-                  // Naviguer vers une autre page, par exemple :
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
-             
-            });
-              
-                    
-                },
-                
-                texte: reponses[questionIndex][0],
+                children: [
+                  for (int i = 0; i < reponses[questionIndex].length; i++)
+                    RectangleButton(
+                      onPressed: () {
+                        recordUserResponse(reponses[questionIndex][i], totalQuestions);
+                      },
+                      texte: reponses[questionIndex][i],
+                    ),
+                ],
               ),
               SizedBox(height: 20),
-              RectangleButton(
-             onPressed: () {
-                reponsesutilisateur.add([reponses[questionIndex][1]]);
-
-                finish =1 ;
-                 setState(() {
-                    if (questionIndex < questions.length-1) {
-                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
-                      
-                      questionIndex++;
-                    }
-        
-                    else { Future.delayed(Duration(seconds: 1), () {
-                    
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen()),);
-                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc
-              });
-                    }
-                // Utiliser Navigator.push pour naviguer vers la deuxième page                  
-                  // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
-                  print('Rectangle 1 cliqué');
-                  // Naviguer vers une autre page, par exemple :
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
-             
-            });
-              
-                    
-                },
-                
-                texte: reponses[questionIndex][1],
-              ),
-              SizedBox(height: 20),
-              RectangleButton(
-               onPressed: () {
-                  reponsesutilisateur.add([reponses[questionIndex][2]]);
-                  finish =1 ;
-                 setState(() {
-                    if (questionIndex < questions.length-1) {
-                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
-                      
-                      questionIndex++;
-                    }
-        
-                    else { Future.delayed(Duration(seconds: 1), () {
-                    
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen()),);
-                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc
-              });
-                    }
-                // Utiliser Navigator.push pour naviguer vers la deuxième page                  
-                  // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
-                  print('Rectangle 2 cliqué');
-                  // Naviguer vers une autre page, par exemple :
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
-             
-            });
-              
-                    
-                },
-                
-                texte: reponses[questionIndex][2],
-                
-              ),
-               SizedBox(height: 20),
-              RectangleButton(
-               onPressed: () {
-                  reponsesutilisateur.add([reponses[questionIndex][3]]);
-                  finish =1 ;
-                 setState(() {
-                    if (questionIndex < questions.length-1) {
-                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
-                      
-                      questionIndex++;
-                    }
-        
-                    else { Future.delayed(Duration(seconds: 1), () {
-                    
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen()),);
-                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc
-              });
-                    }
-                // Utiliser Navigator.push pour naviguer vers la deuxième page                  
-                  // Ajoutez ici le code que vous souhaitez exécuter lorsque le rectangle est cliqué
-                  print('Rectangle 3 cliqué');
-                  // Naviguer vers une autre page, par exemple :
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
-             
-            });
-              
-                    
-                },
-                
-                texte: reponses[questionIndex][3],
-              ),
-              
-                 ],
-                
-                
-              ),
-              SizedBox(height:20),
-              
               GestureDetector(
-                
-            onTap: () {
-               setState(() {
-                     
+                onTap: () {
+                  setState(() {
                     if (questionIndex <= 0) {
-                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
                       questionIndex = 0;
-                       Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()),);
-                      
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyHomePage()),
+                      );
                     }
                     if (questionIndex >= 1) {
-                      // Vous avez atteint la fin du questionnaire, vous pouvez ajouter la logique finale ici
-                      // par exemple, afficher un message de fin, réinitialiser le questionnaire, etc.
-                     questionIndex--;
-                      
+                      questionIndex--;
                     }
-             
-            });
-              // Action à effectuer lors du clic
-              
-            },
-            
-            child: 
-            
-            Align(
-              alignment: Alignment.topLeft,
-              child :Text(
-              '< Retour',
-              style: TextStyle(
-                fontSize: 20,
-                decoration: TextDecoration.underline,
-                color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
+                  });
+                },
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    '< Retour',
+                    style: TextStyle(
+                      fontSize: 20,
+                      decoration: TextDecoration.underline,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                ),
               ),
-              
-            ),
-            ),
-          ),
-              
-             
             ],
           ),
         ),
@@ -360,61 +195,47 @@ class _QuestionnaireState extends State<Questionnaire> {
   }
 }
 
-
-
-
-
 class RectangleButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String texte;
-  
 
-  RectangleButton({required this.onPressed ,required this.texte});
+  RectangleButton({required this.onPressed, required this.texte});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed, 
-      
+      onTap: onPressed,
       child: Container(
         width: 380.0,
         height: 80.0,
-        
         child: Row(
-          
-              children: [
-                SizedBox(width: 5.0),
-                Flexible(
-                  child:
-                Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: EdgeInsets.all(15.0), // Ajustez le padding du texte selon vos besoins
-                child: Text(
-                  texte,
-                  style: TextStyle(
-                    color:  Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold
+          children: [
+            SizedBox(width: 5.0),
+            Flexible(
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Text(
+                    texte,
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
             ),
-                ),
-                // Espacement entre l'image et le texte
-                
-                SizedBox(width: 35.0),
-          
-              ],
-            ),
-      
+            SizedBox(width: 35.0),
+          ],
+        ),
         decoration: BoxDecoration(
-          color:  Theme.of(context).colorScheme.primary,
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(12.0),
         ),
-        
       ),
     );
   }
