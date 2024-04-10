@@ -134,17 +134,18 @@ class _AccountScreenState extends State<Parametres> {
                   ),
                 ),
                 const SizedBox(height: 15),
+
                 SizedBox(
                   width: double.infinity,
                   child: Row(
-                    children: [
-                      Container(
-                        width: 100,
+                     children: [
+                        Container(
+                          width: 100,
                         height: 100,
                         decoration: BoxDecoration(
                           border: Border.all(
                             width: 4,
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                           boxShadow: [
                             BoxShadow(
@@ -213,6 +214,7 @@ class _AccountScreenState extends State<Parametres> {
                 ),
                 const SizedBox(height: 15),
                 Card(
+                  color: Theme.of(context).colorScheme.primary,
                   elevation: 5.0,
                   child: Container(
                     padding: const EdgeInsets.all(10.0),

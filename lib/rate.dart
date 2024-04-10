@@ -48,7 +48,7 @@ class _RateAppScreenState extends State<RateAppScreen> {
               onPressed: () {
               
 
-               Navigator.push(context, MaterialPageRoute(builder: (context) => resultat()),);
+               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => resultat()),);
 
               },
               child:Text('Envoyer', style: TextStyle(color: Theme.of(context).brightness == Brightness.dark
