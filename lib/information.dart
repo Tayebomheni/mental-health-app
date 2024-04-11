@@ -5,8 +5,14 @@ import 'apprendre.dart';
 void main() {
   runApp(info());
 }
+class info extends StatefulWidget {
+    const info({super.key});
 
-class info extends StatelessWidget {
+  @override
+  _infoState createState() => _infoState();
+}
+
+class _infoState extends State<info>  {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,13 +29,13 @@ class sinformer1 extends StatelessWidget {
      final String image= donnees[1] as String;
      
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 53, 53, 54),
+      backgroundColor: Theme.of(context).colorScheme.background,
       
       appBar: 
       
       AppBar(
         toolbarHeight: 60,
-        backgroundColor: Color.fromARGB(255, 53, 53, 54),
+        backgroundColor: Theme.of(context).colorScheme.background,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -67,7 +73,9 @@ class sinformer1 extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 16.0),
                   child: Text(
               text,
-              style: TextStyle(color :Colors.white,fontSize: 18,),
+              style: TextStyle(color : Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,fontSize: 18,),
               textAlign: TextAlign.left,
               
             ),),

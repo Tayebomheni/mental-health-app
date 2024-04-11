@@ -37,9 +37,9 @@ class _MessagesScreenState extends State<MessagesScreen> {
                         // Set different avatars for user and chatbot
                         backgroundImage: widget.messages[index]['isUserMessage']
                             ? AssetImage(
-                                'assets/safouene.jpg') // Replace with user avatar image
+                                'assets/icons/safouene.jpg') // Replace with user avatar image
                             : AssetImage(
-                                'assets/robot.jpg'), // Replace with chatbot avatar image
+                                'assets/icons/robot.jpg'), // Replace with chatbot avatar image
                         radius: 20,
                       ),
                       SizedBox(width: 10),

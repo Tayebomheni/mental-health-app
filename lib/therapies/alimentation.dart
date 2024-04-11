@@ -36,7 +36,7 @@ class alimentation extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image(image: AssetImage("assets/entete.png")),
+            Image(image: AssetImage("assets/icons/entete.png")),
             SizedBox(
               height: 20,
             ),
@@ -50,7 +50,7 @@ class alimentation extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  Image(image: AssetImage("assets/tableau.png")),
+                  Image(image: AssetImage("assets/icons/tableau.png")),
                   SizedBox(
                     height: 20,
                   ),
@@ -68,7 +68,7 @@ class alimentation extends StatelessWidget {
                     height: 10,
                   ),
                   Image(
-                    image: AssetImage("assets/steak.gif"),
+                    image: AssetImage("assets/icons/steak.gif"),
                   ),
                   SizedBox(
                     height: 20,
@@ -83,7 +83,7 @@ class alimentation extends StatelessWidget {
                   ),
                   Text(
                       "Un régime alimentaire approprié peut jouer un rôle important dans la gestion du stress. Lorsque nous sommes stressés, notre corps et notre cerveau réagissent différentes manières. Il se peut que nous soyons plus fatigués et plus anxieux. Adopter une alimentation saine et équilibrée peut alors contribuer à réduire le stress."),
-                  Image(image: AssetImage("assets/food1.png")),
+                  Image(image: AssetImage("assets/icons/food1.png")),
                   Text(
                       "Voici quelques conseils pour une alimentation saine et équilbrée qui peut aider à réduire le stress :"),
                   SizedBox(

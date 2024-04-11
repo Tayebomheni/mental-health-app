@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pcd/color_utils.dart';
 import 'package:pcd/reusable_widget.dart';
 
@@ -14,6 +14,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _userNameTextController = TextEditingController();
+
+  // Méthode pour afficher une alerte
+  void _showErrorAlert(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Erreur"),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("OK",
+              style: TextStyle(color: Colors.black),),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,73 +50,83 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
       body: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-            hexStringToColor("CB2B93"),
-            hexStringToColor("9546C4"),
-            hexStringToColor("5E61F4")
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-          child: SingleChildScrollView(
-              child: Padding(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              hexStringToColor("CB2B93"),
+              hexStringToColor("9546C4"),
+              hexStringToColor("5E61F4"),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
             padding: EdgeInsets.fromLTRB(20, 120, 20, 0),
             child: Column(
               children: <Widget>[
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Nom de l'utilisateur", Icons.person_outline, false,
-                    _userNameTextController, errorText: ''),
+                reusableTextField(
+                  "Nom de l'utilisateur",
+                  Icons.person_outline,
+                  false,
+                  _userNameTextController,
+                  errorText: '',
+                ),
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Email", Icons.person_outline, false,
-                    _emailTextController, errorText: ''),
+                reusableTextField(
+                  "Email",
+                  Icons.person_outline,
+                  false,
+                  _emailTextController,
+                  errorText: '',
+                ),
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Mot de passe", Icons.lock_outlined, true,
-                    _passwordTextController, errorText: ''),
+                reusableTextField(
+                  "Mot de passe",
+                  Icons.lock_outlined,
+                  true,
+                  _passwordTextController,
+                  errorText: '',
+                ),
                 const SizedBox(
                   height: 20,
                 ),
                 firebaseUIButton(context, "S'inscrire", () async {
                   try {
-                    // ignore: unused_local_variable
-                    final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email:  _emailTextController.text,
+                    final credential = await FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                      email: _emailTextController.text,
                       password: _passwordTextController.text,
                     );
-                    await credential.user?.updateDisplayName(_userNameTextController.text);//By calling updateDisplayName after user creation, you can ensure that the display name is set for the user
-                    Navigator.of(context).pushReplacementNamed("navbar");//pushreplacementNamed tkhalik 7ata ki treloadi page yo93od user logged in
+                    await credential.user?.updateDisplayName(
+                        _userNameTextController.text);
+                    Navigator.of(context).pushReplacementNamed("navbar");
                   } on FirebaseAuthException catch (e) {
                     if (e.code == 'weak-password') {
-                      print('The password provided is too weak.');
+                      _showErrorAlert('Le mot de passe est trop faible.');
                     } else if (e.code == 'email-already-in-use') {
-                      print('The account already exists for that email.');
+                      _showErrorAlert(
+                          'Le compte existe déjà pour cet e-mail.');
                     }
                   } catch (e) {
                     print(e);
                   }
-
-
-
-                  /*FirebaseAuth.instance
-                      .createUserWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
-                      .then((value) {
-                    print("Created New Account");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => navbar()));
-                  }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
-                  });*/
-                })
+                }),
               ],
             ),
-          ))),
+          ),
+        ),
+      ),
     );
   }
 }

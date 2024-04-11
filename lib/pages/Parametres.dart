@@ -11,7 +11,7 @@ import 'package:pcd/pages/Edit_screen.dart';
 import 'package:pcd/pages/confidentialite.dart';
 import 'package:pcd/theme/themeprovider.dart';
 import 'package:provider/provider.dart';
-import 'package:pcd/rate.dart';
+import 'package:pcd/Widgets/rate1.dart';
 
 
 
@@ -75,7 +75,12 @@ class _AccountScreenState extends State<Parametres> {
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
-              child: Text('Annuler'),
+              child: Text('Annuler',
+              style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,),
+            ),
             ),
             TextButton(
               onPressed: () async {
@@ -94,8 +99,12 @@ class _AccountScreenState extends State<Parametres> {
                   });
                 }
               },
-              child: Text('Quitter'),
-            ),
+              child: Text('Quitter', 
+              style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,),
+            )),
           ],
         );
       },
@@ -125,17 +134,18 @@ class _AccountScreenState extends State<Parametres> {
                   ),
                 ),
                 const SizedBox(height: 15),
+
                 SizedBox(
                   width: double.infinity,
                   child: Row(
-                    children: [
-                      Container(
-                        width: 100,
+                     children: [
+                        Container(
+                          width: 100,
                         height: 100,
                         decoration: BoxDecoration(
                           border: Border.all(
                             width: 4,
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                           boxShadow: [
                             BoxShadow(
@@ -204,6 +214,7 @@ class _AccountScreenState extends State<Parametres> {
                 ),
                 const SizedBox(height: 15),
                 Card(
+                  color: Theme.of(context).colorScheme.primary,
                   elevation: 5.0,
                   child: Container(
                     padding: const EdgeInsets.all(10.0),
@@ -215,7 +226,7 @@ class _AccountScreenState extends State<Parametres> {
                           icon: Ionicons.star,
                           bgColor: Colors.transparent,
                           iconColor: Colors.amber,
-                          onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen()),);},
+                          onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => RateAppScreen1()),);},
                         ),
                         const SizedBox(height: 8),
                         SettingItem(

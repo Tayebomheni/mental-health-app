@@ -118,7 +118,7 @@ class Aide extends StatelessWidget {
       title: Text(
         question,
         style: TextStyle(
-            fontWeight: FontWeight.bold, color: Colors.purple, fontSize: 18.0),
+            fontWeight: FontWeight.bold),
       ),
       children: [
         Padding(

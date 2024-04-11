@@ -140,7 +140,7 @@ class _sommeilState extends State<sommeil> {
                 height: 20,
               ),
               Image(
-                image: AssetImage("assets/insomnia.gif"),
+                image: AssetImage("assets/icons/insomnia.gif"),
                 height: 200,
                 width: 400,
               ),

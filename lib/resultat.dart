@@ -1,19 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:pcd/pages/MyHomePage.dart';
+import 'package:tflite_flutter/tflite_flutter.dart';
+import 'package:flutter/cupertino.dart';
 
-
-
-
-class resultat extends StatelessWidget {
+class resultat extends StatefulWidget {
+  const resultat({super.key});
   @override
+  _resultatState createState() => _resultatState();
+}
+
+class _resultatState extends State<resultat> {
+  @override var predValue = "";
+  
+  void initState() {
+    super.initState();
+    predValue = "click predict button";
+  }
+
+  Future<void> predData(List<String> input) async {
+    final interpreter = await Interpreter.fromAsset('predmodel.tflite');
+    var output ;
+    interpreter.run(input, output);
+    print(output);
+
+    this.setState(() {
+      predValue = output[0].toString();
+    });
+  }
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 53, 53, 54),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: 
       
       AppBar(
         toolbarHeight: 60,
-        backgroundColor: Color.fromARGB(255, 53, 53, 54),
+        backgroundColor: Theme.of(context).colorScheme.background,
        actions: [
           IconButton(
             icon: Icon(Icons.cancel),
@@ -23,7 +44,9 @@ class resultat extends StatelessWidget {
               print('Annuler');
             },
             iconSize: 35,
-            color: Colors.white,
+            color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
             
           
           ),
@@ -41,7 +64,7 @@ class resultat extends StatelessWidget {
              // Espace en haut de la page
             padding: EdgeInsets.zero,//rendre le texte lié a la position de box decoration
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 84, 82, 82),
+              color: Theme.of(context).colorScheme.primary,
             border: Border.all(),
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
@@ -49,7 +72,9 @@ class resultat extends StatelessWidget {
             child: Text(
             'result',
             style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
                     fontSize: 16.0,
                   ),
             textAlign: TextAlign.center,
@@ -131,7 +156,7 @@ class RectangleButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.0), 
             // Ajustez le rayon des coins selon vos besoins
             child: Image.asset(
-                  'assets/pp.jfif',
+                  'assets/icons/pp.jfif',
                   width: 150.0, // ajustez la largeur de l'image selon vos besoins
                   height: 100.0, // ajustez la hauteur de l'image selon vos besoins
                   fit: BoxFit.cover,
