@@ -14,7 +14,7 @@ class navbar extends StatefulWidget {
 class _navbarState extends State<navbar> {
   int _selectedIndex = 0;
 
-  static  List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     Principal(),
     Therapie(),
     MyHomePage(),
