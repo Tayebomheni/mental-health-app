@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
 
 class exercice extends StatelessWidget {
-  Widget boldText(String boldPart, String normalPart) {
-    return RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(
-            text: boldPart,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          TextSpan(
-            text: normalPart,
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    Widget boldText(String boldPart, String normalPart) {
+      return RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: boldPart,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+              ),
+            ),
+            TextSpan(
+                text: normalPart,
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                )),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: Text('Exercices de relaxation'),
