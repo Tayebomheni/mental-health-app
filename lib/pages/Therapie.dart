@@ -36,7 +36,7 @@ class _HomeState extends State<Therapie> {
               height: 100,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                color: Color.fromRGBO(187, 66, 191, 1),
+                color: Theme.of(context).colorScheme.primary,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -47,7 +47,6 @@ class _HomeState extends State<Therapie> {
                   Text(
                     'Parler avec un chatbot ',
                     style: TextStyle(
-                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -104,7 +103,7 @@ class _HomeState extends State<Therapie> {
                       width: 150,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
-                        color: Color.fromRGBO(187, 66, 191, 1),
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       child: Column(children: [
                         SizedBox(
@@ -113,7 +112,6 @@ class _HomeState extends State<Therapie> {
                         Text(
                           ' Parler avec un specialiste',
                           style: TextStyle(
-                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,
@@ -144,7 +142,7 @@ class _HomeState extends State<Therapie> {
                       width: 150,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
-                        color: Color.fromRGBO(187, 66, 191, 1),
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       child: Column(children: [
                         SizedBox(
@@ -153,7 +151,6 @@ class _HomeState extends State<Therapie> {
                         Text(
                           ' Exercices de relaxation et de respiration',
                           style: TextStyle(
-                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,
@@ -184,7 +181,7 @@ class _HomeState extends State<Therapie> {
                       width: 150,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
-                        color: Color.fromRGBO(187, 66, 191, 1),
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       child: Column(children: [
                         SizedBox(
@@ -193,7 +190,6 @@ class _HomeState extends State<Therapie> {
                         Text(
                           " Suivi de l'alimentation et du mode de vie",
                           style: TextStyle(
-                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,
@@ -224,7 +220,7 @@ class _HomeState extends State<Therapie> {
                       width: 150,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
-                        color: Color.fromRGBO(187, 66, 191, 1),
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       child: Column(children: [
                         SizedBox(
@@ -233,7 +229,6 @@ class _HomeState extends State<Therapie> {
                         Text(
                           ' Gestion du sommeil et relaxation',
                           style: TextStyle(
-                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,
@@ -272,9 +267,8 @@ class clickablebox extends StatelessWidget {
         height: 300,
         width: 150,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          color: Color.fromRGBO(24, 139, 196, 1),
-        ),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            color: Theme.of(context).colorScheme.primary),
       ),
     );
   }

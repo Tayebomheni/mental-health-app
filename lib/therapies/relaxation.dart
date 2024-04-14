@@ -56,10 +56,7 @@ class exercice extends StatelessWidget {
                 height: 20,
               ),
               Text("Etapes de méditation :",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               SizedBox(
                 height: 10,
               ),
@@ -101,10 +98,7 @@ class exercice extends StatelessWidget {
                 height: 20,
               ),
               Text("Les composantes d’une séance de yoga ",
-                  style: TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
+                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
               SizedBox(
                 height: 20,
               ),
@@ -130,10 +124,7 @@ class exercice extends StatelessWidget {
                 height: 20,
               ),
               Text("Les bienfaits du yoga ",
-                  style: TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
+                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
               SizedBox(
                 height: 10,
               ),
@@ -178,10 +169,7 @@ class exercice extends StatelessWidget {
                 height: 10,
               ),
               Text("Conseils pour débuter le yoga ",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               SizedBox(
                 height: 10,
               ),

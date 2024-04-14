@@ -82,10 +82,7 @@ class _sommeilState extends State<sommeil> {
                 height: 20,
               ),
               Text("Insomnie et santé mentale :",
-                  style: TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
+                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
               SizedBox(
                 height: 10,
               ),
@@ -95,10 +92,7 @@ class _sommeilState extends State<sommeil> {
                 height: 20,
               ),
               Text("Prévenir l'insomnie :",
-                  style: TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
+                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
               SizedBox(
                 height: 20,
               ),

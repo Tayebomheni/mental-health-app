@@ -56,9 +56,9 @@ class alimentation extends StatelessWidget {
                   ),
                   Text("La réduction ds troubles anxieux ",
                       style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white)),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
                   SizedBox(
                     height: 10,
                   ),
@@ -75,9 +75,9 @@ class alimentation extends StatelessWidget {
                   ),
                   Text("La réduction du niveau du stress",
                       style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white)),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
                   SizedBox(
                     height: 10,
                   ),

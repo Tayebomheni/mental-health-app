@@ -109,7 +109,15 @@ class _TherapisteState extends State<Therapiste> {
                     );
                   }
                 },
-                child: Text('Send Message'),
+                child: Text(
+                  'Send Message',
+                  style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
             ],
           ),
