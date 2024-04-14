@@ -44,6 +44,7 @@ class _sommeilState extends State<sommeil> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Le sommeil"),
+        backgroundColor: Theme.of(context).colorScheme.primary,
         automaticallyImplyLeading: false,
         actions: [
           IconButton(

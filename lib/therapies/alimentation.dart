@@ -23,6 +23,7 @@ class alimentation extends StatelessWidget {
       appBar: AppBar(
         title: Text("L' alimentation"),
         automaticallyImplyLeading: false,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         actions: [
           IconButton(
             icon: Icon(Icons.close),

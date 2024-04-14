@@ -38,6 +38,7 @@ class _TherapisteState extends State<Therapiste> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Parler avec un thérapiste'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
         automaticallyImplyLeading: false,
         actions: [
           IconButton(

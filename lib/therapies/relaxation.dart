@@ -23,6 +23,7 @@ class exercice extends StatelessWidget {
         appBar: AppBar(
           title: Text('Exercices de relaxation'),
           automaticallyImplyLeading: false,
+          backgroundColor: Theme.of(context).colorScheme.primary,
           actions: [
             IconButton(
               icon: Icon(Icons.close),
