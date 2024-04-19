@@ -47,15 +47,18 @@ class resultat extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children :[
             Center(
+              
             child:  Container(
-            width: 430.0,
-            height: 200.0,// Ajuster la hauteur selon vos besoins
-             // Espace en haut de la page
-            padding: EdgeInsets.zero,//rendre le texte lié a la position de box decoration
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 84, 82, 82),
-            border: Border.all(),
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            
+      width: 200.0,
+      height: 200.0,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: LinearGradient(
+          colors: [const Color.fromARGB(255, 97, 157, 205), Color.fromARGB(255, 183, 187, 193)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
           ),
           child : Center(
             child: Text(
@@ -72,7 +75,7 @@ class resultat extends StatelessWidget {
         ),
         
           ),
-Text('data')  ,         
+        
       
 ],
       ),      
